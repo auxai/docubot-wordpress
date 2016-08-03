@@ -1,0 +1,16 @@
+.docubot_container {
+    .docubot_logo {
+        #docubot-image{}
+        #docubot-logo{}
+        #docubot-getstarted-text{}
+    }
+    ul#docubot-message-display.docubot_messages {
+    }
+    #docubot-message-container {
+        #docubot-message-form{
+            #docubot-message{}
+            #docubot-send-message.docubot_letsgo{}
+            #docubot-send-message.docubot_sendicon{}
+        }
+    }
+}

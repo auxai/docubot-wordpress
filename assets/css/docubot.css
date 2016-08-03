@@ -1,0 +1,156 @@
+.docubot_container {
+    .docubot_logo_container {
+        .docubot_image{}
+        .docubot_logo{}
+        .docubot_getstarted_text{}
+    }
+    ul.docubot_message_display {
+        li.docubot_from_docubot, li.docubot_from_user{
+            .docubot_from_img{}
+            .docubot_from_message{}
+        }
+    }
+    .docubot_message_container {
+        .docubot_message_form{
+            .docubot_message{}
+            .docubot_send_message.docubot_letsgo{}
+            .docubot_send_message.docubot_sendicon{}
+        }
+    }
+}
+.docubot_container {
+    position: relative;
+}
+.docubot_logo_container {
+    position: relative;
+    padding-top: 25px;
+}
+.docubot_image {
+    width:65px;
+    max-width: 15%;
+    display: block;
+    margin:auto;
+    transition: width 0.5s ease-in-out;
+}
+.docubot_logo {
+    width:215px;
+    max-width: 45%;
+    display: block;
+    margin: auto;
+    margin-bottom: 15px;
+}
+.docubot_logo svg path {
+    transition: fill 0.5s ease-in-out;
+}
+.docubot_getstarted_text {
+    color: #B4B4B4;
+    font-size: 20px;
+    max-width: 90%;
+    text-align: center;
+    display: block;
+    margin: auto;
+    transition: opacity 0.5s ease-in-out;
+}
+.docubot_message_div {
+    height: 50px;
+    width: 650px;
+    max-width: 90%;
+    position: relative;
+    margin: auto;
+    transition: width 0.5s ease-in-out;
+}
+input[type="text"].docubot_message {
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+.docubot_send_message.docubot_letsgo {
+    background-color: #2674B9;
+    width: 230px;
+    height: 40px;
+    max-width: 90%;
+    border: 0px;
+    border-radius: 7px;
+    color: #ffffff;
+    font-size: 20px;
+    display: block;
+    margin: auto;
+    margin-top: 30px;
+}
+.docubot_send_message.docubot_sendicon {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.docubot_send_message.docubot_sendicon svg {
+    width: 100%;
+}
+.docubot_send_message.docubot_sendicon svg path {
+    fill: #2674B9;
+    transition: fill 0.3s ease-in-out;
+}
+.docubot_send_message.docubot_sendicon svg path:hover {
+    fill: #2674CA;
+}
+.docubot_container ul.docubot_message_display {
+    width: 90%;
+    margin: auto;
+    display: block;
+    padding: 0;
+    padding-bottom: 32px;
+}
+.docubot_container ul.docubot_message_display li {
+    width: 90%;
+    display: block;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+.docubot_from_img_container {
+    position: absolute;
+}
+.docubot_from_img {
+    width: 60px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+}
+.docubot_from_message {
+    margin-left: 70px;
+    min-height: 60px;
+}
+.docubot_from_user {
+    border-top: 1px solid #cccccc
+}
+.docubot_from_docubot {
+    border-top: 1px solid #cccccc
+}
+.docubot_container.docubot_conversation_started .docubot_image {
+    width: 0;
+}
+.docubot_container.docubot_conversation_started .docubot_message_div {
+    width:90%;
+}
+.docubot_container.docubot_conversation_started .docubot_send_message.docubot_sendicon {
+    border: none;
+    background: none;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    opacity: 1;
+    transform: translateY(-50%);
+}
+.docubot_container.docubot_conversation_started .docubot_send_message.docubot_letsgo {
+    display: none;
+}
+.docubot_container.docubot_conversation_started .docubot_getstarted_text {
+    opacity: 0;
+}
+.docubot_container.docubot_conversation_started .docubot_logo svg path {
+    fill: #2674B9;
+}
