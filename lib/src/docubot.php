@@ -231,7 +231,7 @@ class Docubot {
         $docuUrlData->url = $rData['url'];
         $docuUrl = new DocubotURLResponse();
         $docuUrl->data = $docuUrlData;
-        $docuUrl->meta = $results['meta'];
+        $docuUrl->meta = $result['meta'];
         return $docuUrl;
 
 
