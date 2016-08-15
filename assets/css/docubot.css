@@ -1,3 +1,6 @@
+.docubot_hidden {
+    display: none;
+}
 .docubot_container {
     position: relative;
 }
@@ -37,6 +40,14 @@
 .docubot_logo svg path {
     transition: fill 0.5s ease-in-out;
 }
+.docubot_site_logo_container {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.docubot_site_logo {
+    max-height: 25px;
+    max-width: 25%;
+}
 .docubot_getstarted_text {
     color: #B4B4B4;
     font-size: 20px;
@@ -45,6 +56,9 @@
     display: block;
     margin: auto;
     transition: opacity 0.5s ease-in-out;
+}
+.docubot_message_container {
+    padding-top: 16px;
 }
 .docubot_message_div {
     height: 50px;
@@ -106,7 +120,7 @@ input[type=text]::-ms-clear {
     margin: auto;
     display: block;
     padding: 0;
-    padding-bottom: 32px;
+    padding-bottom: 16px;
 }
 .docubot_container ul.docubot_message_display li {
     width: 90%;
@@ -168,4 +182,51 @@ input[type=text]::-ms-clear {
 }
 .docubot_container.docubot_conversation_started input[type="text"].docubot_message {
     padding-right: 50px;
+}
+
+.docubot_loading {
+    padding: 16px;
+}
+.onelaw-loader {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin: auto;
+}
+.onelaw-loader .bounce1,
+.onelaw-loader .bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #2674ba;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: onelaw-loader 2s infinite ease-in-out;
+    animation: onelaw-loader 2s infinite ease-in-out;
+}
+.onelaw-loader .bounce2 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+}
+@-webkit-keyframes onelaw-loader {
+    0%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+@keyframes onelaw-loader {
+    0%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
 }

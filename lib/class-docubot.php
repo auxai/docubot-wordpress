@@ -96,18 +96,28 @@ class DocubotWP {
             $instructionText = "To get started, please tell DocuBot what you’d like to do.";
 
         }
+        $doctype = $_GET['doctype'];
         ?>
 
-        <div class="docubot_container">
+        <div class="docubot_container <?php if ( isset( $doctype ) ) : ?>docubot_conversation_started<?php endif ?>">
                 <img class="docubot_image" src="<?php echo plugins_url() . '/docubot_wp_plugin/assets/img/docubot.svg';?>" />
             <div class="docubot_logo_container">
                 <div class="docubot_logo">
                     <?php readfile(plugin_dir_path( __DIR__ ) . 'assets/img/docubot-logo.svg');?>
                 </div>
+                <div class="docubot_site_logo_container">
+                    <img class="docubot_site_logo" src="<?php echo wp_get_attachment_url( get_option( 'docubot_site_logo_id' ) ); ?>" />
+                </div>
                 <p class="docubot_getstarted_text"><?php echo $instructionText?></p>
             </div>
             <ul class="docubot_message_display">
             </ul>
+            <div class="docubot_loading docubot_hidden">
+                <div class="onelaw-loader">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                </div>
+            </div>
             <div class="docubot_message_container">
                 <form class="docubot_message_form">
                     <div class="docubot_message_div">

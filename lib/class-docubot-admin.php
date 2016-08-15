@@ -23,6 +23,7 @@ class DocubotAdmin {
 
         add_action( 'admin_menu', __CLASS__ . '::docubot_menu' );
         add_action( 'admin_init', __CLASS__ . '::register_docubot_settings' );
+        add_action( 'admin_enqueue_scripts', __CLASS__ . '::docubot_admin_enqueue_scripts' );
 
     }
 
@@ -37,6 +38,7 @@ class DocubotAdmin {
         if ( !current_user_can( 'manage_options' ) )  {
     		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
     	}
+        wp_enqueue_media();
         ?>
     	<div class="wrap">
             <h1>Docubot Settings</h1>
@@ -53,7 +55,18 @@ class DocubotAdmin {
                         <th scope="row">Docubot API Secret</th>
                         <td><input type="password" name="docubot_api_secret" value="<?php echo esc_attr( get_option('docubot_api_secret') ); ?>" /></td>
                     </tr>
-                    
+
+                    <tr valign="top">
+                        <th scope="row">Logo</th>
+                        <td>
+                            <div class='image-preview-wrapper'>
+                        		<img id='image-preview' src='<?php echo wp_get_attachment_url( get_option( 'docubot_site_logo_id' ) ); ?>' width='auto' height='25px' style='max-height: 25px; width: auto'>
+    	                    </div>
+    	                    <input id="upload_image_button" type="button" class="button" value="<?php _e( 'Upload image' ); ?>" />
+    	                    <input type='hidden' name='docubot_site_logo_id' id='docubot_site_logo_id' value='<?php echo get_option( 'docubot_site_logo_id' ); ?>'>
+                        </td>
+                    </tr>
+
                     <tr valign="top">
                         <th scope="row">Docubot Instruction Text</th>
                         <td><?php wp_editor( get_option( 'docubot_instruction_text' ), 'docubotinstructiontext', array( 'textarea_name' => 'docubot_instruction_text' ) ); ?></td>
@@ -69,7 +82,15 @@ class DocubotAdmin {
 
         register_setting( 'docubot-options', 'docubot_api_key' );
         register_setting( 'docubot-options', 'docubot_api_secret' );
+        register_setting( 'docubot-options', 'docubot_site_logo_id' );
         register_setting( 'docubot-options', 'docubot_instruction_text');
+
+    }
+
+    public static function docubot_admin_enqueue_scripts() {
+
+        wp_register_script( 'docubot_admin_media', plugins_url() . '/docubot_wp_plugin/assets/js/admin-media.js' );
+        wp_enqueue_script( 'docubot_admin_media' );
 
     }
 

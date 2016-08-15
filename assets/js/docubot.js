@@ -3,7 +3,17 @@
     var threadId = undefined;
     var userId = undefined;
     var firstMessage = true;
+    var queryParamas = window.location.search.substring(1).split("&").map(function(e) {
+         return e.split("=");
+      }).reduce(function(val, e) {
+           val[e[0]] = decodeURIComponent(e[1]);
+           return val;
+       }, {});
     $(function() {
+        if (queryParamas['doctype']) {
+            firstMessage = false;
+            createDocType();
+        }
         $(".docubot_message_form").on("submit", function(e){
             e.preventDefault();
             $.ajax({
@@ -34,6 +44,28 @@
 
         });
     });
+    function createDocType() {
+        setLoading(true);
+        $.ajax({
+            url: docuajax_object.ajax_url,
+            method: "POST",
+            data: {
+                "action": "docubot_send_message",
+                "thread": threadId,
+                "sender": userId,
+                "message": queryParamas['doctype']
+            },
+            dataType: "json",
+            success: function(response) {
+                setLoading(false);
+                sendMessageSuccess(response);
+            },
+            error: function(response) {
+                setLoading(false);
+                error(response);
+            },
+        });
+    }
     function sendMessageSuccess(response) {
 
         if (response.error == undefined) {
@@ -56,7 +88,13 @@
         }
         $(".docubot_message_display").append("<li class=\"docubot_from_docubot\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugins_url+"/docubot_wp_plugin/assets/img/docubot-chat-profile.svg);\"/></div><div class=\"docubot_from_message\">"+message.replace(/\n/g, "<br />")+"</div></li>");
         $(".docubot_message_display").trigger('new_message');
-
+    }
+    function setLoading(loading) {
+        if (loading) {
+            $(".docubot_loading").removeClass("docubot_hidden");
+        } else {
+            $(".docubot_loading").addClass("docubot_hidden");
+        }
     }
 
 })(window,jQuery);
