@@ -64,6 +64,20 @@ class DocubotWP {
             wp_die();
 
         }
+        if ($results->data->complete) {
+            $url_response = $server->get_document_url( $thread, $sender );
+
+            if ( isset($url_response->errors) ) {
+
+                $results->data->messages[] = "There was an error when trying to get your document";
+
+            } else {
+
+                $results->data->messages[] = "Here is a link to your document. It will expire after 12hrs: <a target=\"_blank\" href=\"" . $url_response->data->url . "\">" . $url_response->data->url . "</a>";
+
+            }
+
+        }
         $data = [ 'messages' => $results->data->messages, 'complete' => $results->data->complete ];
         $meta = [ 'threadId' => $results->meta->threadId, 'userId' => $results->meta->userId ];
         $res = [ 'data' => $data, 'meta' => $meta ];
@@ -72,7 +86,17 @@ class DocubotWP {
 
     }
 
-    public function docubot_shortcode() { ?>
+
+
+    public function docubot_shortcode() {
+
+        $instructionText = get_option( 'docubot_instruction_text' );
+        if ( !isset( $instructionText ) || $instructionText === '' ) {
+
+            $instructionText = "To get started, please tell DocuBot what you’d like to do.";
+
+        }
+        ?>
 
         <div class="docubot_container">
                 <img class="docubot_image" src="<?php echo plugins_url() . '/docubot_wp_plugin/assets/img/docubot.svg';?>" />
@@ -80,7 +104,7 @@ class DocubotWP {
                 <div class="docubot_logo">
                     <?php readfile(plugin_dir_path( __DIR__ ) . 'assets/img/docubot-logo.svg');?>
                 </div>
-                <p class="docubot_getstarted_text">To get started, please tell DocuBot what you’d like to do.</p>
+                <p class="docubot_getstarted_text"><?php echo $instructionText?></p>
             </div>
             <ul class="docubot_message_display">
             </ul>

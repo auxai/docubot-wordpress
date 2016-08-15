@@ -53,6 +53,11 @@ class DocubotAdmin {
                         <th scope="row">Docubot API Secret</th>
                         <td><input type="password" name="docubot_api_secret" value="<?php echo esc_attr( get_option('docubot_api_secret') ); ?>" /></td>
                     </tr>
+                    
+                    <tr valign="top">
+                        <th scope="row">Docubot Instruction Text</th>
+                        <td><?php wp_editor( get_option( 'docubot_instruction_text' ), 'docubotinstructiontext', array( 'textarea_name' => 'docubot_instruction_text' ) ); ?></td>
+                    </tr>
                 </table>
                 <?php submit_button(); ?>
             </form>
@@ -64,6 +69,7 @@ class DocubotAdmin {
 
         register_setting( 'docubot-options', 'docubot_api_key' );
         register_setting( 'docubot-options', 'docubot_api_secret' );
+        register_setting( 'docubot-options', 'docubot_instruction_text');
 
     }
 

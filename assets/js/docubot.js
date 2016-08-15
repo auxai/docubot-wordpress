@@ -13,7 +13,7 @@
                     "action": "docubot_send_message",
                     "thread": threadId,
                     "sender": userId,
-                    "message": $(".docubot_message").val(),
+                    "message": $(".docubot_message").val()
                 },
                 dataType: "json",
                 success: sendMessageSuccess,
@@ -22,11 +22,14 @@
             if (firstMessage) {
                 $(".docubot_container").addClass("docubot_conversation_started");
                 $(".docubot_message_display").append("<li ><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugins_url+"/docubot_wp_plugin/assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+$(".docubot_message").val()+"</div></li>");
+                $(".docubot_container").trigger('docubot_animation');
+                $(".docubot_message_display").trigger('new_message');
                 $(".docubot_message").val("");
                 firstMessage = false;
                 return;
             }
             $(".docubot_message_display").append("<li class=\"docubot_from_user\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugins_url+"/docubot_wp_plugin/assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+$(".docubot_message").val()+"</div></li>");
+            $(".docubot_message_display").trigger('new_message');
             $(".docubot_message").val("");
 
         });
@@ -52,6 +55,7 @@
             return;
         }
         $(".docubot_message_display").append("<li class=\"docubot_from_docubot\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugins_url+"/docubot_wp_plugin/assets/img/docubot-chat-profile.svg);\"/></div><div class=\"docubot_from_message\">"+message.replace(/\n/g, "<br />")+"</div></li>");
+        $(".docubot_message_display").trigger('new_message');
 
     }
 
