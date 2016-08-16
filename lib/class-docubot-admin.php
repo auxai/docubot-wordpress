@@ -60,7 +60,7 @@ class DocubotAdmin {
                         <th scope="row">Logo</th>
                         <td>
                             <div class='image-preview-wrapper'>
-                        		<img id='image-preview' src='<?php echo wp_get_attachment_url( get_option( 'docubot_site_logo_id' ) ); ?>' width='auto' height='25px' style='max-height: 25px; width: auto'>
+                        		<img id='image-preview' src='<?php echo wp_get_attachment_url( get_option( 'docubot_site_logo_id' ) ); ?>' width='100px' height='100px' style='max-height: 100px; width: 100px'>
     	                    </div>
     	                    <input id="upload_image_button" type="button" class="button" value="<?php _e( 'Upload image' ); ?>" />
     	                    <input type='hidden' name='docubot_site_logo_id' id='docubot_site_logo_id' value='<?php echo get_option( 'docubot_site_logo_id' ); ?>'>

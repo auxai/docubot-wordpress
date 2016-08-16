@@ -30,7 +30,7 @@
 				// We set multiple to false so only get one image from the uploader
 				attachment = file_frame.state().get('selection').first().toJSON();
 				// Do something with attachment.id and/or attachment.url here
-				$( '#image-preview' ).attr( 'src', attachment.url ).css( 'width', 'auto' );
+				$( '#image-preview' ).attr( 'src', attachment.url );
 				$( '#docubot_site_logo_id' ).val( attachment.id );
 				// Restore the main post ID
 				wp.media.model.settings.post.id = wp_media_post_id;
