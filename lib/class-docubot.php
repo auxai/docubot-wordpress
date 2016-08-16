@@ -108,7 +108,7 @@ class DocubotWP {
                 <div class="docubot_site_logo_container">
                     <img class="docubot_site_logo" src="<?php echo wp_get_attachment_url( get_option( 'docubot_site_logo_id' ) ); ?>" />
                 </div>
-                <p class="docubot_getstarted_text"><?php echo $instructionText?></p>
+                <div class="docubot_getstarted_text"><?php echo $instructionText?></div>
             </div>
             <ul class="docubot_message_display">
             </ul>

@@ -55,7 +55,7 @@
     text-align: center;
     display: block;
     margin: auto;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, font 0.5s ease-in-out;
 }
 .docubot_message_container {
     padding-top: 16px;
@@ -79,6 +79,18 @@ input[type="text"].docubot_message {
     color: #757575;
     display: block;
 }
+input[type="text"]:focus.docubot_message {
+    border: none;
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    background-color: #F4F4F4;
+    font-size: 14px;
+    color: #757575;
+    display: block;
+    outline: 0;
+}
 input[type=text]::-ms-clear {
     display: none;
 }
@@ -94,6 +106,7 @@ input[type=text]::-ms-clear {
     display: block;
     margin: auto;
     margin-top: 30px;
+    padding: 10px;
 }
 .docubot_send_message.docubot_letsgo:hover {
     color: #EEEEEE;
@@ -121,6 +134,7 @@ input[type=text]::-ms-clear {
     display: block;
     padding: 0;
     padding-bottom: 16px;
+    transition: padding 0.5s ease-in-out;
 }
 .docubot_container ul.docubot_message_display li {
     width: 90%;
@@ -176,6 +190,10 @@ input[type=text]::-ms-clear {
 }
 .docubot_container.docubot_conversation_started .docubot_getstarted_text {
     opacity: 0;
+    font-size: 0 !important;
+}
+.docubot_container.docubot_conversation_started ul.docubot_message_display {
+    padding-top: 16px;
 }
 .docubot_container.docubot_conversation_started .docubot_logo svg path {
     fill: #2674B9;
