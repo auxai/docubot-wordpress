@@ -196,11 +196,11 @@ class Docubot {
      *
      * @param string $thread The ID of the thread to retrieve the document for.
      * @param string $user The ID of the user for whom to get the document.
-     * @param int $exp The number of seconds (from now) the URL should last before it expires. (Max 86400)
+     * @param int $exp The number of seconds (from now) the URL should last before it expires. (Max 86400/24hrs Default 43200/12hrs)
      *
      * @return DocubotURLResponse|DocubotError
      */
-    public function get_document_url( $thread, $user, $exp = 3600 ) {
+    public function get_document_url( $thread, $user, $exp = 43200 ) {
 
         $ch = curl_init( $this->APIURLBase . '/api/v1/docubot/' . $thread . '/doc/url?' . http_build_query( ['user' => $user] ) );
         curl_setopt( $ch, CURLOPT_USERPWD, $this->APIKey . ':' . $this->APISecret );

@@ -10,7 +10,18 @@
            return val;
        }, {});
     $(function() {
+        // Docubot Animation Stuff
         setupDocubotAnimation();
+        $(".sprite-Docubot").on("click", function(e) {
+            e.preventDefault();
+            animateDocubot(function() {
+
+                setupDocubotAnimation();
+
+            });
+            return false;
+        });
+        // End Docubot Animation Stuff
         if (queryParamas['doctype']) {
             firstMessage = false;
             createDocType();
@@ -106,37 +117,48 @@
 
     var docubotAnimationInterval;
     var docubotAnimationTimeout;
-    function setupDocubotAnimation() {
+    function animateDocubot(cb) {
 
         if (docubotAnimationInterval) { return; }
         var elm = $(".sprite-Docubot");
         if (!elm.length) { return; }
         var frame = 0;
+        docubotAnimationInterval = window.setInterval(function() {
+
+            if (frame === 0) {
+
+                elm.removeClass("sprite-Docubot_Dance_173");
+
+            } else {
+
+                elm.removeClass("sprite-Docubot_Dance_" + (frame - 1));
+
+            }
+            elm.addClass("sprite-Docubot_Dance_" + frame);
+            frame = frame + 1;
+            if (frame > 173) { // there are 174 frames in the animation
+
+                stopDocubotAnimation();
+                if (cb) { cb(); }
+
+            }
+
+        }, 33);
+
+    }
+    function setupDocubotAnimation() {
+
+        if (docubotAnimationInterval || docubotAnimationTimeout) { return; }
         docubotAnimationTimeout = window.setTimeout(function() {
 
             docubotAnimationTimeout = null;
-            docubotAnimationInterval = window.setInterval(function() {
+            animateDocubot(function() {
 
-                if (frame === 0) {
+                setupDocubotAnimation();
 
-                    elm.removeClass("sprite-Docubot_Dance_173");
+            });
 
-                } else {
-
-                    elm.removeClass("sprite-Docubot_Dance_" + (frame - 1));
-
-                }
-                elm.addClass("sprite-Docubot_Dance_" + frame);
-                frame = frame + 1;
-                if (frame > 173) { // there are 174 frames in the animation
-
-                    frame = 0;
-
-                }
-
-            }, 33);
-
-        }, 3000);
+        }, Math.floor(Math.random() * 7000) + 3000 );
 
     }
     function stopDocubotAnimation() {

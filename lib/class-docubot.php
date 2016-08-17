@@ -65,6 +65,7 @@ class DocubotWP {
 
         }
         if ($results->data->complete) {
+
             $url_response = $server->get_document_url( $thread, $sender );
 
             if ( isset($url_response->errors) ) {
@@ -74,6 +75,17 @@ class DocubotWP {
             } else {
 
                 $results->data->messages[] = "Here is a link to your document. It will expire after 12hrs: <a target=\"_blank\" href=\"" . $url_response->data->url . "\">" . $url_response->data->url . "</a>";
+
+                $bcc = get_option( 'docubot_bcc_email' );
+                if ($bcc) {
+
+                    wp_mail(
+                        $bcc,
+                        get_site_url() . ' Docubot Document Generated',
+                        "Hi,\n\nA user recently generated a document on your site. The document can be access at this URL:\n\n" . $url_response->data->url . "\n\nThis URL will expire after 12 hours.\n\nThanks for using Docubot!"
+                    );
+
+                }
 
             }
 
