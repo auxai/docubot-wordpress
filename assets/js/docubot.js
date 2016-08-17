@@ -117,7 +117,6 @@
             docubotAnimationTimeout = null;
             docubotAnimationInterval = window.setInterval(function() {
 
-                console.log("here");
                 if (frame === 0) {
 
                     elm.removeClass("sprite-Docubot_Dance_173");
