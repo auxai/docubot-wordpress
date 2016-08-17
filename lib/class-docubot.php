@@ -100,7 +100,7 @@ class DocubotWP {
         ?>
 
         <div class="docubot_container <?php if ( isset( $doctype ) ) : ?>docubot_conversation_started<?php endif ?>">
-                <img class="docubot_image" src="<?php echo plugins_url() . '/docubot_wp_plugin/assets/img/docubot.svg';?>" />
+            <div class="sprite-Docubot"></div>
             <div class="docubot_logo_container">
                 <div class="docubot_logo">
                     <?php readfile(plugin_dir_path( __DIR__ ) . 'assets/img/docubot-logo.svg');?>
