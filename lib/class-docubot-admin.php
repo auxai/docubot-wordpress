@@ -59,8 +59,9 @@ class DocubotAdmin {
                     <tr valign="top">
                         <th scope="row">Logo</th>
                         <td>
-                            <div class='image-preview-wrapper'>
-                        		<img id='image-preview' src='<?php echo wp_get_attachment_url( get_option( 'docubot_site_logo_id' ) ); ?>' width='100px' height='100px' style='max-height: 100px; width: 100px'>
+                            <div class='docubot-logo-preview-wrapper'>
+                                <div class="docubot_remove_image">&times;</div>
+                        		<img id='docubot-logo-preview' src='<?php echo wp_get_attachment_url( get_option( 'docubot_site_logo_id' ) ); ?>' width='100px' height='100px' style='max-height: 100px; width: 100px'>
     	                    </div>
     	                    <input id="upload_image_button" type="button" class="button" value="<?php _e( 'Upload image' ); ?>" />
     	                    <input type='hidden' name='docubot_site_logo_id' id='docubot_site_logo_id' value='<?php echo get_option( 'docubot_site_logo_id' ); ?>'>
@@ -91,6 +92,8 @@ class DocubotAdmin {
 
         wp_register_script( 'docubot_admin_media', plugins_url() . '/docubot_wp_plugin/assets/js/admin-media.js' );
         wp_enqueue_script( 'docubot_admin_media' );
+        wp_register_style( 'docubot_admin_style', plugins_url() . '/docubot_wp_plugin/assets/css/admin.css' );
+        wp_enqueue_style( 'docubot_admin_style' );
 
     }
 

@@ -1,0 +1,15 @@
+.docubot-logo-preview-wrapper {
+    position: relative;
+    width:100px;
+    height:100px;
+}
+.docubot_remove_image {
+    display: none;
+    position: absolute;
+    right: 0;
+    padding: 5px;
+}
+.docubot-logo-preview-wrapper:hover .docubot_remove_image {
+    display: block;
+    cursor: pointer;
+}
