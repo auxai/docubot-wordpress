@@ -57,6 +57,11 @@ class DocubotAdmin {
                     </tr>
 
                     <tr valign="top">
+                        <th scope="row">Docubot BCC Email(s)</th>
+                        <td><input type="email" name="docubot_bcc_email" value="<?php echo esc_attr( get_option('docubot_bcc_email') ); ?>" placeholder="Comma separate multiple addresses" /></td>
+                    </tr>
+
+                    <tr valign="top">
                         <th scope="row">Logo</th>
                         <td>
                             <div class='docubot-logo-preview-wrapper'>
@@ -83,6 +88,7 @@ class DocubotAdmin {
 
         register_setting( 'docubot-options', 'docubot_api_key' );
         register_setting( 'docubot-options', 'docubot_api_secret' );
+        register_setting( 'docubot-options', 'docubot_bcc_email' );
         register_setting( 'docubot-options', 'docubot_site_logo_id' );
         register_setting( 'docubot-options', 'docubot_instruction_text');
 
