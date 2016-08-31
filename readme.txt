@@ -1,5 +1,15 @@
-Docubot
-======================
+=== Plugin Name ===
+Contributors: jvyrd
+Tags: bot, lawyer, document, attorney, legal, lead
+Requires at least: 3.0.1
+Tested up to: 4.6
+Stable tag: 1.0.0
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
+Docubot™ is artificial intelligence, designed specifically for legal websites.
+
+== Description ==
 
 What is Docubot?
 ----
@@ -20,26 +30,19 @@ Why Docubot™ For Legal Consumers?
 * Perfect for those lacking a personal connection to a lawyer
 * Simple, step-by-step guidance reduces legal system anxieties
 * Easy access for consumers hampered with geographical constraints
-* Good fit for consumer that fall into the justice gap—have too much for pro bono 		work, but unable to afford traditional private legal services
+* Good fit for consumer that fall into the justice gap—have too much for pro bono work, but unable to afford traditional private legal services
 
-Support
--------
-This is a developer's portal for The Docubot Wordpress Plugin and should not be used for support. Please visit the
-[support forums](https://wordpress.org/support/plugin/docubot).
-
-Reporting bugs
+Development
 ----
-We try to fix as many bugs we can. If you find an issue, [let us know here](https://github.com/auxai/docubot-wordpress/issues/new).
+Development is performed on github [here](https://github.com/auxai/docubot-wordpress)
 
-It may help us a lot if you can provide a backtrace of the error encountered. You can use [code in this gist](https://gist.github.com/jrfnl/5925642) to enable the backtrace in your website's configuration.
+== Installation ==
 
-Contributions
--------------
-Anyone is welcome to contribute to Docubot. Just issue a pull request.
+1. Upload the plugin files to the `/wp-content/plugins/docubot_wp_plugin` directory, or install the plugin through the WordPress plugins screen directly.
+1. Activate the plugin through the 'Plugins' screen in WordPress
+1. Use the Settings->Docubot screen to configure the plugin
 
-There are various ways you can contribute:
+== Changelog ==
 
-* [Raise an issue](https://github.com/auxai/docubot-wordpress/issues) on GitHub.
-* Send us a Pull Request with your bug fixes and/or new features.
-* Provide feedback and [suggestions on enhancements](https://github.com/auxia/docubot-wordpress/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open).
-* Provide us with a new document for Docubot to generate.
+= 1.0 =
+* Initial version of plugin
