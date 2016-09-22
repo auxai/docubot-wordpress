@@ -90,7 +90,7 @@ class DocubotWP {
 
             } else {
 
-                $results->data->messages[] = "Here is a link to your document. It will expire after 12hrs: <a target=\"_blank\" href=\"" . $url_response->data->url . "\">" . $url_response->data->url . "</a>";
+                $results->data->messages[] = "<a target=\"_blank\" href=\"" . $url_response->data->url . "\">" . "Click here " . "</a>to view your document. It will expire after 12hrs";
 
                 $bcc = get_option( 'docubot_bcc_email' );
                 if ($bcc) {
