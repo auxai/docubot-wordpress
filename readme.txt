@@ -2,8 +2,8 @@
 Contributors: jvyrd
 Tags: bot, lawyer, document, attorney, legal, lead
 Requires at least: 3.0.1
-Tested up to: 4.6
-Stable tag: 1.0.0
+Tested up to: 4.7
+Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -46,3 +46,5 @@ Development is performed on github [here](https://github.com/auxai/docubot-wordp
 
 = 1.0 =
 * Initial version of plugin
+= 1.0.1 =
+* Fixed a couple bugs relating to CSS and JS
