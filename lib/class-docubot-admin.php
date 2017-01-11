@@ -111,9 +111,9 @@ class DocubotAdmin {
 
     public static function docubot_admin_enqueue_scripts() {
 
-        wp_register_script( 'docubot_admin_media', plugins_url() . '/docubot_wp_plugin/assets/js/admin-media.js' );
+        wp_register_script( 'docubot_admin_media', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/admin-media.js' );
         wp_enqueue_script( 'docubot_admin_media' );
-        wp_register_style( 'docubot_admin_style', plugins_url() . '/docubot_wp_plugin/assets/css/admin.css' );
+        wp_register_style( 'docubot_admin_style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/admin.css' );
         wp_enqueue_style( 'docubot_admin_style' );
 
     }

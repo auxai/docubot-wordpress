@@ -47,10 +47,10 @@ class DocubotWP {
 
     public function docubot_assets() {
 
-        wp_register_script( 'docubot', plugins_url() . '/docubot_wp_plugin/assets/js/docubot.js', '', '', true );
+        wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js', '', '', true );
         wp_enqueue_script( 'docubot' );
         wp_localize_script( 'docubot', 'docuajax_object',  array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'plugins_url' => plugins_url() ));
-        wp_register_style( 'docubot_style', plugins_url() . '/docubot_wp_plugin/assets/css/docubot.css' );
+        wp_register_style( 'docubot_style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/docubot.css' );
         wp_enqueue_style( 'docubot_style' );
 
     }
