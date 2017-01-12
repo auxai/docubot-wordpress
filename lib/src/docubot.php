@@ -218,7 +218,7 @@ class Docubot {
      */
     public function get_document_url( $thread, $user, $exp = 43200 ) {
 
-        $ch = curl_init( $this->APIURLBase . '/api/v1/docubot/' . $thread . '/doc/url?' . http_build_query( ['user' => $user] ) );
+        $ch = curl_init( $this->APIURLBase . '/api/v1/docubot/' . $thread . '/doc/url?' . http_build_query( ['user' => $user, 'duration' => $exp] ) );
         curl_setopt( $ch, CURLOPT_USERPWD, $this->APIKey . ':' . $this->APISecret );
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type:application/x-www-form-urlencoded' ) );
         curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
