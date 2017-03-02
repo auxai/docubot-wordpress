@@ -1,5 +1,5 @@
 /*
-Copyright (C)  2016, 1LAW Legal Technologies, LLC
+Copyright (C)  2017, 1LAW Legal Technologies, LLC
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             if (firstMessage) {
                 stopDocubotAnimation();
                 $(".docubot_container").addClass("docubot_conversation_started");
-                $(".docubot_message_display").append("<li><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugins_url+"/docubot_wp_plugin/assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+$(".docubot_message").val()+"</div></li>");
+                $(".docubot_message_display").append("<li><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugin_url+"assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+$(".docubot_message").val()+"</div></li>");
                 $(".docubot_message_display").trigger('new_message');
                 $(".docubot_container").trigger('docubot_animation');
                 $(".docubot_message").val("");
@@ -113,14 +113,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         console.log(response);
     }
     function printMessageFromUser(message) {
-        $(".docubot_message_display").append("<li class=\"docubot_from_user\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugins_url+"/docubot_wp_plugin/assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+message+"</div></li>");
+        $(".docubot_message_display").append("<li class=\"docubot_from_user\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugin_url+"assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+message+"</div></li>");
         $(".docubot_message_display").trigger('new_message');
     }
     function printMessageFromDocubot(message) {
         if (message === "") {
             return;
         }
-        $(".docubot_message_display").append("<li class=\"docubot_from_docubot\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugins_url+"/docubot_wp_plugin/assets/img/docubot-chat-profile.svg);\"/></div><div class=\"docubot_from_message\">"+message.replace(/\n/g, "<br />")+"</div></li>");
+        $(".docubot_message_display").append("<li class=\"docubot_from_docubot\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugin_url+"assets/img/docubot-chat-profile.svg);\"/></div><div class=\"docubot_from_message\">"+message.replace(/\n/g, "<br />")+"</div></li>");
         $(".docubot_message_display").trigger('new_message');
     }
     function setLoading(loading) {

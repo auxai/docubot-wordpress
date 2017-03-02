@@ -1,6 +1,6 @@
 <?php
 /*
-Copyright (C)  2016, 1LAW Legal Technologies, LLC
+Copyright (C)  2017, 1LAW Legal Technologies, LLC
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -49,7 +49,7 @@ class DocubotWP {
 
         wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js', '', '', true );
         wp_enqueue_script( 'docubot' );
-        wp_localize_script( 'docubot', 'docuajax_object',  array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'plugins_url' => plugins_url() ));
+        wp_localize_script( 'docubot', 'docuajax_object',  array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'plugin_url' => plugin_dir_url( dirname( __FILE__ ) ) ));
         wp_register_style( 'docubot_style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/docubot.css' );
         wp_enqueue_style( 'docubot_style' );
 
