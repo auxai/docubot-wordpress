@@ -24,7 +24,7 @@ if ( !class_exists( 'DocubotWP' ) ):
 class DocubotWP {
 
     private static $instance;
-    private static $docubotAPIURL = 'http://dev.tractusonline.com:3001';
+    private static $docubotAPIURL = 'https://docubotapi.1law.com';
 
     public static function instance() {
 
