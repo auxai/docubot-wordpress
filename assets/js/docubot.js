@@ -18,8 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     var threadId = undefined;
     var userId = undefined;
+    var variables = undefined;
+    var docTree = undefined;
+    var doc = undefined;
     var firstMessage = true;
-    var queryParamas = window.location.search.substring(1).split("&").map(function(e) {
+    var queryParams = window.location.search.substring(1).split("&").map(function(e) {
          return e.split("=");
       }).reduce(function(val, e) {
            val[e[0]] = decodeURIComponent(e[1]);
@@ -38,11 +41,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             return false;
         });
         // End Docubot Animation Stuff
-        if (queryParamas['doctype']) {
+        if (queryParams['doctype']) {
             firstMessage = false;
             createDocType();
         }
+        var shouldPrintMessage = true;
         $(".docubot_message_form").on("submit", function(e){
+            setLoading(true);
             e.preventDefault();
             $.ajax({
                 url: docuajax_object.ajax_url,
@@ -51,6 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     "action": "docubot_send_message",
                     "thread": threadId,
                     "sender": userId,
+                    "variables": variables ? JSON.stringify(variables) : undefined,
+                    "docTree": docTree ? JSON.stringify(docTree) : undefined,
+                    "document": doc ? JSON.stringify(doc) : undefined,
                     "message": $(".docubot_message").val()
                 },
                 dataType: "json",
@@ -60,7 +68,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             if (firstMessage) {
                 stopDocubotAnimation();
                 $(".docubot_container").addClass("docubot_conversation_started");
-                $(".docubot_message_display").append("<li><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugin_url+"assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+$(".docubot_message").val()+"</div></li>");
+                if (shouldPrintMessage) {
+                  $(".docubot_message_display").append("<li><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugin_url+"assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+$(".docubot_message").val()+"</div></li>");
+                }
+                shouldPrintMessage = true;
                 $(".docubot_message_display").trigger('new_message');
                 $(".docubot_container").trigger('docubot_animation');
                 $(".docubot_message").val("");
@@ -69,9 +80,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 $(".sprite-Docubot").animate({height: 0}, 500);
                 return;
             }
-            printMessageFromUser($(".docubot_message").val());
+            if (shouldPrintMessage) {
+              printMessageFromUser($(".docubot_message").val());
+            }
+            shouldPrintMessage = true;
             $(".docubot_message").val("");
 
+        });
+        $(".docubot_document_button").on("click", function() {
+          shouldPrintMessage = false;
+          $(".docubot_message").val($(this).data("value"));
+          $(".docubot_message_form").trigger("submit");
         });
     });
     function createDocType() {
@@ -83,24 +102,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 "action": "docubot_send_message",
                 "thread": threadId,
                 "sender": userId,
-                "message": queryParamas['doctype']
+                "variables": variables ? JSON.stringify(variables) : undefined,
+                "docTree": docTree ? JSON.stringify(docTree) : undefined,
+                "document": doc ? JSON.stringify(doc) : undefined,
+                "message": queryParams['doctype']
             },
             dataType: "json",
-            success: function(response) {
-                setLoading(false);
-                sendMessageSuccess(response);
-            },
-            error: function(response) {
-                setLoading(false);
-                error(response);
-            },
+            success: sendMessageSuccess,
+            error: error,
         });
     }
     function sendMessageSuccess(response) {
 
+        setLoading(false);
         if (response.error == undefined) {
             threadId = response.meta.threadId;
             userId = response.meta.userId;
+            variables = response.data.variables;
+            docTree = response.data.docTree;
+            doc = response.data.document;
             for (i = 0; i < response.data.messages.length; i++) {
                 printMessageFromDocubot(response.data.messages[i]);
             }
@@ -110,6 +130,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     }
     function error(response) {
+        setLoading(false);
         console.log(response);
     }
     function printMessageFromUser(message) {

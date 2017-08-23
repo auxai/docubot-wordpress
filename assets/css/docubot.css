@@ -207,6 +207,26 @@ input[type=text]::-ms-clear {
 .docubot_container.docubot_conversation_started input[type="text"].docubot_message {
     padding-right: 50px;
 }
+.docubot_container.docubot_use_files .docubot_message_container {
+  display: none;
+}
+.docubot_container.docubot_use_files.docubot_conversation_started .docubot_message_container {
+  display: block;
+}
+.docubot_container.docubot_use_files.docubot_conversation_started .docubot_document_buttons {
+  display: none;
+}
+.docubot_document_buttons {
+  text-align: center;
+}
+.docubot_document_button {
+    background-color: #2674B9;
+    color: #ffffff;
+}
+.docubot_document_button:hover {
+  color: #EEEEEE;
+  background-color: #59A7EC;
+}
 
 .docubot_loading {
     padding: 16px;

@@ -24,6 +24,7 @@ if ( !class_exists( 'DocubotWP' ) ):
 class DocubotWP {
 
     private static $instance;
+    private static $docubotAPIURL = 'http://dev.tractusonline.com:3001';
 
     public static function instance() {
 
@@ -40,12 +41,13 @@ class DocubotWP {
 
         add_action( 'wp_enqueue_scripts', __CLASS__ . '::docubot_assets' );
         add_action( 'wp_ajax_docubot_send_message', __CLASS__ . '::docubot_send_message' );
-        add_action('wp_ajax_nopriv_docubot_send_message', __CLASS__ . '::docubot_send_message');
-        add_shortcode('Docubot', __CLASS__ . '::docubot_shortcode');
+        add_action( 'wp_ajax_nopriv_docubot_send_message', __CLASS__ . '::docubot_send_message' );
+        add_shortcode( 'Docubot', __CLASS__ . '::docubot_shortcode' );
+        add_filter( 'query_vars', __CLASS__ . '::add_query_vars' );
 
     }
 
-    public function docubot_assets() {
+    public static function docubot_assets() {
 
         wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js', '', '', true );
         wp_enqueue_script( 'docubot' );
@@ -55,14 +57,175 @@ class DocubotWP {
 
     }
 
-    public function docubot_send_message() {
+    public static function add_query_vars( $vars ) {
+
+      $vars[] = 'doctype';
+      return $vars;
+
+    }
+
+    public static function docubot_send_preview_message( $message, $server ) {
+
+      $variables = $_POST['variables'];
+      $docTree = $_POST['docTree'];
+      $document = $_POST['document'];
+      if ( !isset( $docTree ) ) {
+
+          for ( $i=1; $i <= 3; $i++) {
+
+              $docTreeTxt = get_option( 'docubot_doctree_' . $i );
+              $docTreeObj = json_decode( $docTreeTxt, true );
+              if ( !empty( $docTreeTxt ) ) {
+
+                  if ( strtolower( $message ) == strtolower( $docTreeObj['documentName'] ) ) {
+
+                      $docTree = $docTreeObj;
+                      $document = json_decode( get_option( 'docubot_document_' . $i ), true );
+                      break;
+
+                  }
+
+              }
+
+          }
+          if ( !isset( $docTree ) ) {
+
+            $err = [ 'errors' => [ 'No Viable Doc Tree!' ] ];
+            print json_encode( $err );
+            wp_die();
+
+          }
+          // Send our entry question
+          $data = [ 'messages' => [$docTree['entryQuestion']['question']], 'complete' => false, 'variables' => new stdClass(), 'docTree' => $docTree, 'document' => $document ];
+          $meta = [ 'threadId' => NULL, 'userId' => NULL, 'messageMetaData' => new stdClass() ];
+          $res = [ 'data' => $data, 'meta' => $meta ];
+          print json_encode( $res );
+          wp_die();
+
+      } else {
+
+          $docTree = json_decode( stripslashes( $docTree ), true );
+          $document = json_decode( stripslashes( $document ), true );
+
+      }
+      if ( !isset( $variables ) ) {
+
+          $variables = new stdClass();
+
+      } else {
+
+          $variables = json_decode( stripslashes( $variables ), true );
+          if ( empty( $variables ) ) {
+
+              $variables = new stdClass();
+
+          }
+
+      }
+      $results = $server->send_preview_message( $message, $variables, $docTree );
+      header( 'Content-Type: application/json' );
+      if ( isset($results->errors) ) {
+
+          $err = [ 'errors' => $results->errors ];
+          print json_encode( $err );
+          wp_die();
+
+      }
+      if ($results->data->complete) {
+
+          $tmpFile = self::docubot_download_document( $server, $document, $variables );
+          if ( rename( $tmpFile, $tmpFile . '.pdf' ) ) {
+            $tmpFile = $tmpFile . '.pdf';
+          }
+          $doc_url = 'data:application/pdf;base64,' . base64_encode( file_get_contents( $tmpFile ) );
+
+          if ( $doc_url == 'data:application/pdf;base64,' ) {
+
+              $results->data->messages[] = "There was an error when trying to get your document";
+
+          } else {
+
+              $results->data->messages[] = "<a target=\"_blank\" href=\"" . $doc_url . "\" download=\"" . $docTree["documentName"] .".pdf\">" . "Click here " . "</a>to view your document.";
+
+              $bcc = get_option( 'docubot_bcc_email' );
+              if ($bcc) {
+
+                  die(var_dump(wp_mail(
+                      $bcc,
+                      get_site_url() . ' Docubot Document Generated',
+                      "Hi,\n\nA user recently generated a document on your site. The generated document is attached.\n\nThanks for using Docubot!",
+                      '',
+                      array(
+                        $tmpFile
+                      )
+                  )));
+
+              }
+
+          }
+          unlink( $tmpFile );
+
+      }
+      $data = [ 'messages' => $results->data->messages, 'complete' => $results->data->complete, 'variables' => $results->data->variables, 'docTree' => $docTree, 'document' => $document ];
+      $meta = [ 'threadId' => $results->meta->threadId, 'userId' => $results->meta->userId, 'messageMetaData' => $results->meta->messageMetaData ];
+      $res = [ 'data' => $data, 'meta' => $meta ];
+      print json_encode( $res );
+      wp_die();
+
+    }
+
+    private static function docubot_download_document( $server, $document, $variables ) {
+
+        if ( !isset( $document ) ) {
+
+            $err = [ 'errors' => [ 'No Viable Doc!' ] ];
+            print json_encode( $err );
+            wp_die();
+
+        }
+        if ( !isset( $variables ) ) {
+
+            $variables = new stdClass();
+
+        }
+        $temp = tmpfile();
+        $tmpFile = tempnam( sys_get_temp_dir(), 'tmp' );
+        $temp = fopen( $tmpFile, 'w+' );
+        if ( !$temp ) {
+
+            $err = [ 'errors' => [ 'Couldn\'t get tmp file!' ] ];
+            print json_encode( $err );
+            wp_die();
+
+        }
+        $result = $server->get_preview_document( $variables, $document, $temp );
+        if ( isset( $result ) ) {
+
+            $err = [ 'errors' => $result->errors ];
+            print json_encode( $err );
+            wp_die();
+
+        }
+        fclose( $temp );
+        return $tmpFile;
+
+    }
+
+    public static function docubot_send_message() {
 
         $key = get_option('docubot_api_key');
         $secret = get_option('docubot_api_secret');
-        $server = new \OneLaw\Docubot($key, $secret);
+        $server = new \OneLaw\Docubot($key, $secret, self::$docubotAPIURL);
+        $message = $_POST['message'];
+        $useDocubotFiles = get_option('docubot_use_files');
+        if ( $useDocubotFiles == '1' ) {
+
+            self::docubot_send_preview_message( $message, $server );
+            return;
+
+        }
         $thread = $_POST['thread'];
         $sender = $_POST['sender'];
-        $message = $_POST['message'];
         if ( isset($thread) && isset($sender) ) {
 
             $results = $server->send_message( $message, $thread, $sender );
@@ -116,18 +279,53 @@ class DocubotWP {
 
 
 
-    public function docubot_shortcode() {
+    public static function docubot_shortcode() {
 
+        if ( !get_option( 'docubot_api_key' ) || !get_option( 'docubot_api_secret' ) ) {
+
+            return;
+
+        }
+        $useDocubotFiles = get_option('docubot_use_files');
         $instructionText = get_option( 'docubot_instruction_text' );
         if ( !isset( $instructionText ) || $instructionText === '' ) {
 
             $instructionText = "To get started, please tell DocuBot what you’d like to do.";
 
         }
-        $doctype = $_GET['doctype'];
+        $docNameOne = '';
+        $docNameTwo = '';
+        $docNameThree = '';
+        $doctype = get_query_var( 'doctype', NULL );
+        if ( $useDocubotFiles == '1' ) {
+          $docTreeOne = get_option( 'docubot_doctree_1' );
+          $docTreeOneObj = json_decode( $docTreeOne );
+          if ( !empty( $docTreeOne ) ) {
+            $docNameOne = $docTreeOneObj->documentName;
+          }
+          $docTreeTwo = get_option( 'docubot_doctree_2' );
+          $docTreeTwoObj = json_decode( $docTreeTwo );
+          if ( !empty( $docTreeTwo ) ) {
+            $docNameTwo = $docTreeTwoObj->documentName;
+          }
+          $docTreeThree = get_option( 'docubot_doctree_3' );
+          $docTreeThreeObj = json_decode( $docTreeThree );
+          if ( !empty( $docTreeThree ) ) {
+            $docNameThree = $docTreeThreeObj->documentName;
+          }
+          if (
+            strtolower( $doctype ) != strtolower( $docNameOne ) &&
+            strtolower( $doctype ) != strtolower( $docNameTwo ) &&
+            strtolower( $doctype ) != strtolower( $docNameThree )
+          ) {
+
+            $doctype = NULL;
+
+          }
+        }
         ?>
 
-        <div class="docubot_container <?php if ( isset( $doctype ) ) : ?>docubot_conversation_started<?php endif ?>">
+        <div class="docubot_container<?php if ( $useDocubotFiles == '1' ) { ?> docubot_use_files<?php } if ( isset( $doctype ) ) : ?> docubot_conversation_started<?php endif ?>">
             <div class="sprite-Docubot"></div>
             <div class="docubot_logo_container">
                 <div class="docubot_logo">
@@ -146,6 +344,20 @@ class DocubotWP {
                     <div class="bounce2"></div>
                 </div>
             </div>
+            <?php
+            if ( $useDocubotFiles == '1' ) { ?>
+            <div class="docubot_document_buttons">
+              <?php if ( $docNameOne ) { ?>
+                <button type="button" data-value="<?php echo $docNameOne; ?>" class="docubot_document_button"><?php echo $docNameOne; ?></button>
+              <?php } ?>
+              <?php if ( $docNameTwo ) { ?>
+                <button type="button" data-value="<?php echo $docNameTwo; ?>" class="docubot_document_button"><?php echo $docNameTwo; ?></button>
+              <?php } ?>
+              <?php if ( $docNameThree ) { ?>
+                <button type="button" data-value="<?php echo $docNameThree; ?>" class="docubot_document_button"><?php echo $docNameThree; ?></button>
+              <?php } ?>
+            </div>
+            <?php } ?>
             <div class="docubot_message_container">
                 <form class="docubot_message_form">
                     <div class="docubot_message_div">
