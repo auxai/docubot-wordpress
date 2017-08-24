@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             firstMessage = false;
             createDocType();
         } else if (queryParams['docbuilderfile']) {
-
+          handleExternalDocubotFile(queryParams['docbuilderfile']);
         }
         var shouldPrintMessage = true;
         $(".docubot_message_form").on("submit", function(e){
@@ -69,26 +69,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 success: sendMessageSuccess,
                 error: error
             });
-            if (firstMessage) {
-                stopDocubotAnimation();
-                $(".docubot_container").addClass("docubot_conversation_started");
-                if (shouldPrintMessage) {
-                  $(".docubot_message_display").append("<li><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugin_url+"assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+$(".docubot_message").val()+"</div></li>");
-                }
-                shouldPrintMessage = true;
-                $(".docubot_message_display").trigger('new_message');
-                $(".docubot_container").trigger('docubot_animation');
-                $(".docubot_message").val("");
-                firstMessage = false;
-                $(".docubot_getstarted_text").animate({height: 0}, 500);
-                $(".sprite-Docubot").animate({height: 0}, 500);
-                return;
-            }
             if (shouldPrintMessage) {
               printMessageFromUser($(".docubot_message").val());
             }
             shouldPrintMessage = true;
             $(".docubot_message").val("");
+            if (firstMessage) {
+                firstMessageSent();
+                return;
+            }
 
         });
         $(".docubot_document_button").on("click", function() {
@@ -138,6 +127,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     function error(response) {
         setLoading(false);
         console.log(response);
+    }
+    function firstMessageSent(hideInstantly) {
+      stopDocubotAnimation();
+      $(".docubot_container").addClass("docubot_conversation_started");
+      $(".docubot_message_display").trigger('new_message');
+      firstMessage = false;
+      if (hideInstantly) {
+        $(".docubot_getstarted_text").hide();
+        $(".sprite-Docubot").hide();
+      } else {
+        $(".docubot_container").trigger('docubot_animation');
+        $(".docubot_getstarted_text").animate({height: 0}, 500);
+        $(".sprite-Docubot").animate({height: 0}, 500);
+      }
     }
     function printMessageFromUser(message) {
         $(".docubot_message_display").append("<li class=\"docubot_from_user\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugin_url+"assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+message+"</div></li>");
@@ -218,6 +221,50 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             docubotAnimationTimeout = null;
 
         }
+
+    }
+
+    function handleExternalDocubotFile(file) {
+
+      firstMessageSent(true);
+      setLoading(true);
+      $.getScript(docuajax_object.jszip_url, function() {
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+          if (this.readyState == 4 && this.status == 200) {
+
+            JSZip.loadAsync(this.response).then(function(zip) {
+              zip.forEach(function(path, zipEntry) {
+                if (path == 'doc-tree.json') {
+                  zipEntry.async('string').then(function(content) {
+                    try {
+                      docTree = JSON.parse(content);
+                      printMessageFromDocubot(docTree.entryQuestion.question);
+                    } catch (e) {
+                      console.error('DocTree Unreadable!');
+                    }
+                    setLoading(false);
+                  });
+                } else if (path == 'document.json') {
+                  zipEntry.async('string').then(function(content) {
+                    try {
+                      doc = JSON.parse(content);
+                    } catch (e) {
+                      console.error('Document Unreadable!');
+                    }
+                  });
+                }
+              });
+            });
+
+          }
+        }
+        xhr.open('GET', file);
+        xhr.responseType = 'blob';
+        xhr.send();
+
+      });
 
     }
 
