@@ -150,7 +150,7 @@ class DocubotWP {
               $bcc = get_option( 'docubot_bcc_email' );
               if ($bcc) {
 
-                  die(var_dump(wp_mail(
+                  wp_mail(
                       $bcc,
                       get_site_url() . ' Docubot Document Generated',
                       "Hi,\n\nA user recently generated a document on your site. The generated document is attached.\n\nThanks for using Docubot!",
@@ -158,7 +158,7 @@ class DocubotWP {
                       array(
                         $tmpFile
                       )
-                  )));
+                  );
 
               }
 
