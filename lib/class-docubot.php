@@ -51,7 +51,7 @@ class DocubotWP {
 
         wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js', '', '', true );
         wp_enqueue_script( 'docubot' );
-        wp_localize_script( 'docubot', 'docuajax_object',  array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'plugin_url' => plugin_dir_url( dirname( __FILE__ ) ) ));
+        wp_localize_script( 'docubot', 'docuajax_object',  array( 'initial_nonce' => wp_create_nonce( 'docubot-message-nonce' ), 'jszip_url' => plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/vendor/jszip.min.js', 'ajax_url' => admin_url( 'admin-ajax.php' ), 'plugin_url' => plugin_dir_url( dirname( __FILE__ ) ) ));
         wp_register_style( 'docubot_style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/docubot.css' );
         wp_enqueue_style( 'docubot_style' );
 
@@ -97,7 +97,7 @@ class DocubotWP {
           }
           // Send our entry question
           $data = [ 'messages' => [$docTree['entryQuestion']['question']], 'complete' => false, 'variables' => new stdClass(), 'docTree' => $docTree, 'document' => $document ];
-          $meta = [ 'threadId' => NULL, 'userId' => NULL, 'messageMetaData' => new stdClass() ];
+          $meta = [ 'threadId' => NULL, 'nonce' => wp_create_nonce( 'docubot-message-nonce' ), 'userId' => NULL, 'messageMetaData' => new stdClass() ];
           $res = [ 'data' => $data, 'meta' => $meta ];
           print json_encode( $res );
           wp_die();
@@ -167,7 +167,7 @@ class DocubotWP {
 
       }
       $data = [ 'messages' => $results->data->messages, 'complete' => $results->data->complete, 'variables' => $results->data->variables, 'docTree' => $docTree, 'document' => $document ];
-      $meta = [ 'threadId' => $results->meta->threadId, 'userId' => $results->meta->userId, 'messageMetaData' => $results->meta->messageMetaData ];
+      $meta = [ 'threadId' => $results->meta->threadId, 'nonce' => wp_create_nonce( 'docubot-message-nonce' ), 'userId' => $results->meta->userId, 'messageMetaData' => $results->meta->messageMetaData ];
       $res = [ 'data' => $data, 'meta' => $meta ];
       print json_encode( $res );
       wp_die();
@@ -213,6 +213,7 @@ class DocubotWP {
 
     public static function docubot_send_message() {
 
+        check_ajax_referer( 'docubot-message-nonce', 'security' );
         $key = get_option('docubot_api_key');
         $secret = get_option('docubot_api_secret');
         $server = new \OneLaw\Docubot($key, $secret, self::$docubotAPIURL);
@@ -270,7 +271,7 @@ class DocubotWP {
 
         }
         $data = [ 'messages' => $results->data->messages, 'complete' => $results->data->complete ];
-        $meta = [ 'threadId' => $results->meta->threadId, 'userId' => $results->meta->userId ];
+        $meta = [ 'threadId' => $results->meta->threadId, 'nonce' => wp_create_nonce( 'docubot-message-nonce' ), 'userId' => $results->meta->userId ];
         $res = [ 'data' => $data, 'meta' => $meta ];
         print json_encode( $res );
         wp_die();

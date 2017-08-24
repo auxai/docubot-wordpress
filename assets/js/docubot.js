@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     var variables = undefined;
     var docTree = undefined;
     var doc = undefined;
+    var nonce = docuajax_object.initial_nonce;
     var firstMessage = true;
     var queryParams = window.location.search.substring(1).split("&").map(function(e) {
          return e.split("=");
@@ -44,6 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         if (queryParams['doctype']) {
             firstMessage = false;
             createDocType();
+        } else if (queryParams['docbuilderfile']) {
+
         }
         var shouldPrintMessage = true;
         $(".docubot_message_form").on("submit", function(e){
@@ -59,7 +62,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     "variables": variables ? JSON.stringify(variables) : undefined,
                     "docTree": docTree ? JSON.stringify(docTree) : undefined,
                     "document": doc ? JSON.stringify(doc) : undefined,
-                    "message": $(".docubot_message").val()
+                    "message": $(".docubot_message").val(),
+                    "security": nonce
                 },
                 dataType: "json",
                 success: sendMessageSuccess,
@@ -105,7 +109,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 "variables": variables ? JSON.stringify(variables) : undefined,
                 "docTree": docTree ? JSON.stringify(docTree) : undefined,
                 "document": doc ? JSON.stringify(doc) : undefined,
-                "message": queryParams['doctype']
+                "message": queryParams['doctype'],
+                "security": nonce
             },
             dataType: "json",
             success: sendMessageSuccess,
@@ -121,6 +126,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             variables = response.data.variables;
             docTree = response.data.docTree;
             doc = response.data.document;
+            nonce = response.meta.nonce;
             for (i = 0; i < response.data.messages.length; i++) {
                 printMessageFromDocubot(response.data.messages[i]);
             }
