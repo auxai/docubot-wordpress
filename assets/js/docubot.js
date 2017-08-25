@@ -85,6 +85,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           $(".docubot_message").val($(this).data("value"));
           $(".docubot_message_form").trigger("submit");
         });
+        $(".docubot_message_accessory").on("click", "button", function() {
+          $(".docubot_message").val($(this).data("value"));
+          $(".docubot_message_form").trigger("submit");
+        });
     });
     function createDocType() {
         setLoading(true);
@@ -117,7 +121,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             doc = response.data.document;
             nonce = response.meta.nonce;
             for (i = 0; i < response.data.messages.length; i++) {
-                printMessageFromDocubot(response.data.messages[i]);
+                printMessageFromDocubot(response.data.messages[i], response.meta.messageMetaData);
             }
             return;
         }
@@ -142,16 +146,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         $(".sprite-Docubot").animate({height: 0}, 500);
       }
     }
+    function displayMessageAccessoryView(message, messageMetaData) {
+      $(".docubot_message_accessory").empty();
+      if (!messageMetaData || $.isEmptyObject(messageMetaData)) {
+        $(".docubot_message_accessory").hide();
+        return;
+      }
+      var meta = messageMetaData[message];
+      if (!meta) {
+        $(".docubot_message_accessory").hide();
+        return;
+      }
+      if (meta.entityType === 'boolean') {
+        $(".docubot_message_accessory").append("<button type=\"button\" data-value=\"Yes\">Yes</button>");
+        $(".docubot_message_accessory").append("<button type=\"button\" data-value=\"No\">No</button>");
+        $(".docubot_message_accessory").show();
+      } else if (meta.choices && !$.isEmptyObject(meta.choices)) {
+        for (var choice in meta.choices) {
+          $(".docubot_message_accessory").append("<button type=\"button\" data-value=\"" + choice + "\">" + choice + "</button>");
+        }
+        $(".docubot_message_accessory").show();
+      }
+    }
     function printMessageFromUser(message) {
         $(".docubot_message_display").append("<li class=\"docubot_from_user\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugin_url+"assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+message+"</div></li>");
         $(".docubot_message_display").trigger('new_message');
+        displayMessageAccessoryView(null, null);
     }
-    function printMessageFromDocubot(message) {
+    function printMessageFromDocubot(message, messageMetaData) {
         if (message === "") {
             return;
         }
         $(".docubot_message_display").append("<li class=\"docubot_from_docubot\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugin_url+"assets/img/docubot-chat-profile.svg);\"/></div><div class=\"docubot_from_message\">"+message.replace(/\n/g, "<br />")+"</div></li>");
         $(".docubot_message_display").trigger('new_message');
+        displayMessageAccessoryView(message, messageMetaData);
     }
     function setLoading(loading) {
         if (loading) {

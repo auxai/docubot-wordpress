@@ -64,10 +64,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     text-align: center;
     display: block;
     margin: auto;
+    position: relative;
     transition: opacity 0.5s ease-in-out, font 0.5s ease-in-out;
 }
 .docubot_message_container {
     padding-top: 16px;
+}
+.docubot_message_accessory {
+  width: 650px;
+  max-width: 90%;
+  position: relative;
+  margin: auto;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 8px;
+}
+.docubot_message_accessory button {
+    background-color: #2674B9;
+    color: #ffffff;
+    margin-left: 8px;
+}
+.docubot_message_accessory button:first-child {
+    margin-left: 0;
+}
+.docubot_message_accessory button:hover {
+  color: #EEEEEE;
+  background-color: #59A7EC;
 }
 .docubot_message_div {
     height: 50px;
@@ -106,7 +129,6 @@ input[type=text]::-ms-clear {
 .docubot_send_message.docubot_letsgo {
     background-color: #2674B9;
     width: 230px;
-    height: 40px;
     max-width: 90%;
     border: 0px;
     border-radius: 7px;

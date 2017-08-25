@@ -214,6 +214,7 @@ class DocubotWP {
     public static function docubot_send_message() {
 
         check_ajax_referer( 'docubot-message-nonce', 'security' );
+        header('Content-Type: application/json');
         $key = get_option('docubot_api_key');
         $secret = get_option('docubot_api_secret');
         $server = new \OneLaw\Docubot($key, $secret, self::$docubotAPIURL);
@@ -236,7 +237,6 @@ class DocubotWP {
             $results = $server->send_message( $message );
 
         }
-        header( 'Content-Type: application/json' );
         if ( isset($results->errors) ) {
 
             $err = [ 'errors' => $results->errors ];
@@ -360,6 +360,7 @@ class DocubotWP {
             </div>
             <?php } ?>
             <div class="docubot_message_container">
+                <div class="docubot_message_accessory" style="display: none;"></div>
                 <form class="docubot_message_form">
                     <div class="docubot_message_div">
                         <input class="docubot_message" type="text" placeholder="Type your text here"/>
