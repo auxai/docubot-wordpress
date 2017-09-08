@@ -71,8 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     padding-top: 16px;
 }
 .docubot_message_accessory {
-  width: 650px;
-  max-width: 90%;
+  width: 90%;
   position: relative;
   margin: auto;
   overflow-x: auto;
@@ -82,7 +81,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 .docubot_message_accessory button {
     background-color: #2674B9;
+    border: 0px;
+    border-radius: 0;
     color: #ffffff;
+    font-size: 14px;
+    display: inline-block;
+    margin: auto;
+    padding: 10px;
     margin-left: 8px;
 }
 .docubot_message_accessory button:first-child {
@@ -243,7 +248,13 @@ input[type=text]::-ms-clear {
 }
 .docubot_document_button {
     background-color: #2674B9;
+    border: 0px;
+    border-radius: 0;
     color: #ffffff;
+    font-size: 14px;
+    display: inline-block;
+    margin: auto;
+    padding: 10px;
 }
 .docubot_document_button:hover {
   color: #EEEEEE;

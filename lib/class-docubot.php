@@ -97,7 +97,7 @@ class DocubotWP {
           }
           // Send our entry question
           $data = [ 'messages' => [$docTree['entryQuestion']['question']], 'complete' => false, 'variables' => new stdClass(), 'docTree' => $docTree, 'document' => $document ];
-          $meta = [ 'threadId' => NULL, 'nonce' => wp_create_nonce( 'docubot-message-nonce' ), 'userId' => NULL, 'messageMetaData' => new stdClass() ];
+          $meta = [ 'threadId' => NULL, 'nonce' => wp_create_nonce( 'docubot-message-nonce' ), 'userId' => NULL, 'messageMetaData' => $docTree['entryQuestion']['metaData'] ? [ $docTree['entryQuestion']['question'] => $docTree['entryQuestion']['metaData'] ] : new stdClass() ];
           $res = [ 'data' => $data, 'meta' => $meta ];
           print json_encode( $res );
           wp_die();
