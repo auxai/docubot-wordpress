@@ -271,7 +271,7 @@ class DocubotWP {
 
         }
         $data = [ 'messages' => $results->data->messages, 'complete' => $results->data->complete ];
-        $meta = [ 'threadId' => $results->meta->threadId, 'nonce' => wp_create_nonce( 'docubot-message-nonce' ), 'userId' => $results->meta->userId ];
+        $meta = [ 'threadId' => $results->meta->threadId, 'nonce' => wp_create_nonce( 'docubot-message-nonce' ), 'userId' => $results->meta->userId, 'messageMetaData' => $results->meta->messageMetaData ];
         $res = [ 'data' => $data, 'meta' => $meta ];
         print json_encode( $res );
         wp_die();

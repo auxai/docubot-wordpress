@@ -292,6 +292,7 @@ class Docubot {
         $docuMeta = new DocubotMessageResponseMeta();
         $docuMeta->threadId = $rMeta['threadId'];
         $docuMeta->userId = $rMeta['userId'];
+        $docuMeta->messageMetaData = $rMeta['messageMetaData'];
         $docuResponse = new DocubotMessageResponse();
         $docuResponse->data = $docuData;
         $docuResponse->meta = $docuMeta;
