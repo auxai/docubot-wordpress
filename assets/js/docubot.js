@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             return false;
         });
         // End Docubot Animation Stuff
-        if (queryParams['doctype']) {
+        if (queryParams['doctype'] || queryParams['doc']) {
             firstMessage = false;
             createDocType();
         } else if (queryParams['docbuilderfile']) {
@@ -102,7 +102,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 "variables": variables ? JSON.stringify(variables) : undefined,
                 "docTree": docTree ? JSON.stringify(docTree) : undefined,
                 "document": doc ? JSON.stringify(doc) : undefined,
-                "message": queryParams['doctype'],
+                "message": queryParams['doctype'] || queryParams['doc'],
                 "security": nonce
             },
             dataType: "json",
