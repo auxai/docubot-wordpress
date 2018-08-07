@@ -3,7 +3,7 @@
 Plugin Name: Docubot
 Plugin URI: http://aux.ai/
 Description: A Plugin that adds Docubot to a wordpress site. It is added via the short code [Docubot]. Should be the only thing on the page.
-Version: 1.1.0
+Version: 2.0.0
 Author: Aux
 Author URI: http://aux.ai
 License: GPL3
