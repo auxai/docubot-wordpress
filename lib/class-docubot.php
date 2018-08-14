@@ -57,21 +57,28 @@ class DocubotWP {
           'docubot_style'
         );
 
-        wp_register_script(
-          'docubot',
-          plugin_dir_url(dirname(__FILE__)) . 'assets/js/docubot.js',
-          '',
-          '',
-          true
-        );
-        wp_enqueue_script(
-          'docubot'
-        );
-        wp_localize_script(
-          'docubot',
-          'docubot-data',
-          
-        );
+        // wp_register_script(
+        //   'docubot',
+        //   plugin_dir_url(dirname(__FILE__)) . 'assets/js/docubot.js',
+        //   '',
+        //   '',
+        //   true
+        // );
+        // wp_enqueue_script(
+        //   'docubot'
+        // );
+        // //DO SOMETHING TO GRAB INFO FROM FILE
+        // $data = parse_file();
+        // wp_localize_script(
+        //   'docubot',
+        //   'docubot-document',
+        //   $data["document"]
+        // );
+        // wp_localize_script(
+        //   'docubot',
+        //   'docubot-doc-tree',
+        //   $data["doctree"]
+        // );
 
     }
 
@@ -85,7 +92,6 @@ class DocubotWP {
               <iframe class="changeMe" src="https://docubotembed.1law.com/">
               </iframe>
             </div>
-            <style
         <?php
     }
 
