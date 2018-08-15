@@ -40,24 +40,35 @@ class DocubotWP {
     public function __construct() {
 
         add_action( 'wp_enqueue_scripts', __CLASS__ . '::docubot_assets' );
-        add_action( 'wp_ajax_docubot_send_message', __CLASS__ . '::docubot_send_message' );
-        add_action( 'wp_ajax_nopriv_docubot_send_message', __CLASS__ . '::docubot_send_message' );
         add_shortcode( 'Docubot', __CLASS__ . '::docubot_shortcode' );
         add_filter( 'query_vars', __CLASS__ . '::add_query_vars' );
 
     }
 
+    public static function add_query_vars( $vars ) {
+
+        $vars[] = 'doctype';
+        return $vars;
+
+    }
+
+
     public static function docubot_assets() {
 
         wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js', '', '', true );
         wp_enqueue_script( 'docubot' );
-        wp_localize_script( 'docubot', 'docuajax_object',  array( 'initial_nonce' => wp_create_nonce( 'docubot-message-nonce' ), 'jszip_url' => plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/vendor/jszip.min.js', 'ajax_url' => admin_url( 'admin-ajax.php' ), 'plugin_url' => plugin_dir_url( dirname( __FILE__ ) ) ));
+        if ( get_option('docubot_use_files') == '1' ) {
+
+            //TODO: Get file info, pass it to js to handle file based docubot usage
+            wp_localize_script( 'docubot'/*, 'docuajax_object', array( 'initial_nonce' => wp_create_nonce( 'docubot-message-nonce' ), 'jszip_url' => plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/vendor/jszip.min.js', 'ajax_url' => admin_url( 'admin-ajax.php' ), 'plugin_url' => plugin_dir_url( dirname( __FILE__ ) ) )*/ );
+
+        }
         wp_register_style( 'docubot_style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/docubot.css' );
         wp_enqueue_style( 'docubot_style' );
 
     }
 
-    public static function docubot_shortcode() {
+    public static function docubot_shortcode( $atts ) {
 
         if ( !get_option( 'docubot_api_key' ) || !get_option( 'docubot_api_secret' ) ) {
 
@@ -76,30 +87,42 @@ class DocubotWP {
         $docNameThree = '';
         $doctype = get_query_var( 'doctype', NULL );
         if ( $useDocubotFiles == '1' ) {
-          $docTreeOne = get_option( 'docubot_doctree_1' );
-          $docTreeOneObj = json_decode( $docTreeOne );
-          if ( !empty( $docTreeOne ) ) {
-            $docNameOne = $docTreeOneObj->documentName;
-          }
-          $docTreeTwo = get_option( 'docubot_doctree_2' );
-          $docTreeTwoObj = json_decode( $docTreeTwo );
-          if ( !empty( $docTreeTwo ) ) {
-            $docNameTwo = $docTreeTwoObj->documentName;
-          }
-          $docTreeThree = get_option( 'docubot_doctree_3' );
-          $docTreeThreeObj = json_decode( $docTreeThree );
-          if ( !empty( $docTreeThree ) ) {
-            $docNameThree = $docTreeThreeObj->documentName;
-          }
-          if (
-            strtolower( $doctype ) != strtolower( $docNameOne ) &&
-            strtolower( $doctype ) != strtolower( $docNameTwo ) &&
-            strtolower( $doctype ) != strtolower( $docNameThree )
-          ) {
 
-            $doctype = NULL;
+            $docTreeOne = get_option( 'docubot_doctree_1' );
+            $docTreeOneObj = json_decode( $docTreeOne );
+            if ( !empty( $docTreeOne ) ) {
 
-          }
+                $docNameOne = $docTreeOneObj->documentName;
+
+            }
+            $docTreeTwo = get_option( 'docubot_doctree_2' );
+            $docTreeTwoObj = json_decode( $docTreeTwo );
+            if ( !empty( $docTreeTwo ) ) {
+
+                $docNameTwo = $docTreeTwoObj->documentName;
+
+            }
+            $docTreeThree = get_option( 'docubot_doctree_3' );
+            $docTreeThreeObj = json_decode( $docTreeThree );
+            if ( !empty( $docTreeThree ) ) {
+
+                $docNameThree = $docTreeThreeObj->documentName;
+
+            }
+            if (
+                strtolower( $doctype ) != strtolower( $docNameOne ) &&
+                strtolower( $doctype ) != strtolower( $docNameTwo ) &&
+                strtolower( $doctype ) != strtolower( $docNameThree )
+            ) {
+
+              $doctype = NULL;
+
+            }
+
+        } else {
+
+            //TODO: BUILD query string with client api keys and document id if applicable document
+
         }
         ?>
 
