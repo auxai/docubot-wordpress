@@ -59,8 +59,21 @@ class DocubotWP {
         wp_enqueue_script( 'docubot' );
         if ( get_option('docubot_use_files') == '1' ) {
 
-            //TODO: Get file info, pass it to js to handle file based docubot usage
-            wp_localize_script( 'docubot'/*, 'docuajax_object', array( 'initial_nonce' => wp_create_nonce( 'docubot-message-nonce' ), 'jszip_url' => plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/vendor/jszip.min.js', 'ajax_url' => admin_url( 'admin-ajax.php' ), 'plugin_url' => plugin_dir_url( dirname( __FILE__ ) ) )*/ );
+            //√TODO: Get file info, pass it to js to handle file based docubot usage
+            wp_localize_script(
+              'docubot',
+              'docubot_script',
+              array(
+                // 'docNameOne' => 'docubot_doctree_1',
+                // 'docNameTwo' => 'docubot_doctree_2',
+                // 'docNameThree' => 'docubot_doctree_3'
+                'initial_nonce' => wp_create_nonce( 'docubot-message-nonce' ),
+                'jszip_url' => plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/vendor/jszip.min.js',
+                'adminjs_url' => admin_url( 'admin-media.php' ),
+                'plugin_url' => plugin_dir_url( dirname( __FILE__ ) ) )
+              )
+
+            );
 
         }
         wp_register_style( 'docubot_style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/docubot.css' );
@@ -75,6 +88,7 @@ class DocubotWP {
             return;
 
         }
+        $embedurl = 'https://docubotembed.1law.com/';
         $useDocubotFiles = get_option('docubot_use_files');
         $instructionText = get_option( 'docubot_instruction_text' );
         if ( !isset( $instructionText ) || $instructionText === '' ) {
@@ -121,7 +135,8 @@ class DocubotWP {
 
         } else {
 
-            //TODO: BUILD query string with client api keys and document id if applicable document
+            //√TODO: BUILD query string with client api keys and document id if applicable document
+            \$embedurl .= 'd=' . $documentid . 'c=' . $clientid .  's=' . $clientsecret . 'primaryColor=' . $primaryColor . 'primaryColorContrast=' . $PCC . 'bg=' . $bg . 'secondaryColor=' . $sc . 'secondaryColorContrast=' . $SCC \
 
         }
         ?>
@@ -152,7 +167,8 @@ class DocubotWP {
             </div>
             <?php } ?>
             <div class="docubot_message_container">
-                <!-- TODO: add iframe here -->
+                <!-- √ TODO: add iframe here -->
+                <iframe src='https://docubotembed.1law.com/'/>
             </div>
         </div>
 
