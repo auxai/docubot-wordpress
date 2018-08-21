@@ -40,6 +40,7 @@ class DocubotWP {
     public function __construct() {
 
         add_action( 'wp_enqueue_scripts', __CLASS__ . '::docubot_assets' );
+        add_action( 'admin_menu', 'my_plugin_menu' );
         add_shortcode( 'Docubot', __CLASS__ . '::docubot_shortcode' );
         add_filter( 'query_vars', __CLASS__ . '::add_query_vars' );
 
@@ -71,11 +72,9 @@ class DocubotWP {
                 'jszip_url' => plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/vendor/jszip.min.js',
                 'adminjs_url' => admin_url( 'admin-media.php' ),
                 'plugin_url' => plugin_dir_url( dirname( __FILE__ ) ) )
-              )
+              );
 
-            );
-
-        }
+        };
         wp_register_style( 'docubot_style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/docubot.css' );
         wp_enqueue_style( 'docubot_style' );
 
@@ -83,11 +82,23 @@ class DocubotWP {
 
     public static function docubot_shortcode( $atts ) {
 
-        if ( !get_option( 'docubot_api_key' ) || !get_option( 'docubot_api_secret' ) ) {
+        $clientid = get_option('docubot_api_key');
+        $clientsecret = get_option('docubot_api_secret');
+        if ( !$clientid || !$clientsecret ) {
 
             return;
 
         }
+        $a = shortcode_atts( array(
+
+          'documentId' => '',
+          'primaryColor' => '',
+          'primaryColorContrast' => '',
+          'bg' => '',
+          'secondaryColor' => '',
+          'secondaryColorContrast' => ''
+
+        ), $atts );
         $embedurl = 'https://docubotembed.1law.com/';
         $useDocubotFiles = get_option('docubot_use_files');
         $instructionText = get_option( 'docubot_instruction_text' );
@@ -136,7 +147,104 @@ class DocubotWP {
         } else {
 
             //√TODO: BUILD query string with client api keys and document id if applicable document
-            \$embedurl .= 'd=' . $documentid . 'c=' . $clientid .  's=' . $clientsecret . 'primaryColor=' . $primaryColor . 'primaryColorContrast=' . $PCC . 'bg=' . $bg . 'secondaryColor=' . $sc . 'secondaryColorContrast=' . $SCC \
+            $embedurl .= 'c=' . $clientid .  '&s=' . $clientsecret;
+            
+            if ( $a['documentId'] != '' ) {
+
+              $d = $a['documentId'];
+
+            } else {
+
+              $d = get_option('docubot_documentid');
+
+            }
+
+            if ( isset($d) && $d != '' ) {
+
+              $embedurl .= '&d=' . $d;
+
+            }
+
+            if ( $a['primaryColor'] != '' ) {
+
+              $primaryColor = $a['primaryColor'];
+
+            } else {
+
+              $primaryColor = get_option('docubot_primaryColor');
+
+            }
+
+            if ( isset($primaryColor) && $primaryColor != '' ) {
+
+              $embedurl .= '&primaryColor=' . $primaryColor;
+
+            }
+
+            if ( $a['primaryColorContrast'] != '' ) {
+
+              $primaryColorContrast = $a['primaryColorContrast'];
+
+            } else {
+
+              $primaryColorContrast = get_option('docubot_primaryColorContrast');
+
+            }
+
+            if ( isset($primaryColorContrast) && $primaryColorContrast != '' ) {
+
+              $embedurl .= '&primaryColorContrast=' . $primaryColorContrast;
+
+            }
+
+            if ( $a['bg'] != '' ) {
+
+              $bg = $a['bg'];
+
+            } else {
+
+              $bg = get_option('docubot_bg');
+
+            }
+
+            if ( isset($bg) && $bg != '' ) {
+
+              $embedurl .= '&bg=' . $bg;
+
+            }
+
+            if ( $a['secondaryColor'] != '' ) {
+
+              $secondaryColor = $a['secondaryColor'];
+
+            } else {
+
+              $secondaryColor = get_option('docubot_secondaryColor');
+
+            }
+
+            if ( isset($secondaryColor) && $secondaryColor != '' ) {
+
+              $embedurl .= '&secondaryColor=' . $secondaryColor;
+
+            }
+
+            if ( $a['secondaryColorContrast'] != '' ) {
+
+              $secondaryColorContrast = $a['secondaryColorContrast'];
+
+            } else {
+
+              $secondaryColorContrast = get_option('docubot_secondaryColorContrast');
+
+            }
+
+            if ( isset($secondaryColorContrast) && $secondaryColorContrast != '' ) {
+
+              $embedurl .= '&secondaryColorContrast=' . $secondaryColorContrast;
+
+            }
+
 
         }
         ?>
@@ -167,8 +275,7 @@ class DocubotWP {
             </div>
             <?php } ?>
             <div class="docubot_message_container">
-                <!-- √ TODO: add iframe here -->
-                <iframe src='https://docubotembed.1law.com/'/>
+                <iframe src="<?php echo $embedurl ?>"/>
             </div>
         </div>
 
