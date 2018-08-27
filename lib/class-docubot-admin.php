@@ -78,7 +78,7 @@ class DocubotAdmin {
 
             <tr valign="top">
               <th scope="row">Docubot API Secret</th>
-              <td><input type="password" name="docubot_api_secret" value="<?php echo $apiSecret; ?>" /></td>
+              <td><input type="text" name="docubot_api_secret" value="<?php echo $apiSecret; ?>" /></td>
             </tr>
             <?php if ( !empty( $apiKey ) && !empty( $apiSecret ) ) { ?>
               <tr valign="top">
@@ -89,8 +89,8 @@ class DocubotAdmin {
               <!-- Document ID -->
 
               <tr valign="top">
-                <th scope="row">Docubot ID<p>NOTE: If you are using Docubot files this field will be ignored.</p></th>
-                <td><input type="text" name="docubot_documentid" value="<?php echo esc_attr( get_option('docubot_documentid') ); ?>" /></td>
+                <th scope="row">Docubot Document ID<p>NOTE: If you are using Docubot files this field will be ignored.</p></th>
+                <td><input type="text" name="docubot_document_id" value="<?php echo esc_attr( get_option('docubot_document_id') ); ?>" /></td>
               </tr>
 
               <tr valign="top">
@@ -188,15 +188,15 @@ class DocubotAdmin {
               </tr>
 
               <!-- Colors -->
-              
+
               <tr valign="top">
                 <th scope="row">Primary Color</th>
-                <td><input type="color" name="docubot_primaryColor" value="<?php echo esc_attr( get_option('docubot_primaryColor') ); ?>" /></td>
+                <td><input type="color" name="docubot_primary_color" value="<?php echo esc_attr( get_option('docubot_primary_color') ); ?>" /></td>
               </tr>
-              
+
               <tr valign="top">
                 <th scope="row">Primary Color Contrast</th>
-                <td><input type="color" name="docubot_primaryColorContrast" value="<?php echo esc_attr( get_option('docubot_primaryColorContrast') ); ?>" /></td>
+                <td><input type="color" name="docubot_primary_color_contrast" value="<?php echo esc_attr( get_option('docubot_primary_color_contrast') ); ?>" /></td>
               </tr>
 
               <tr valign="top">
@@ -206,12 +206,12 @@ class DocubotAdmin {
 
               <tr valign="top">
                 <th scope="row">Secondary Color</th>
-                <td><input type="color" name="docubot_secondaryColor" value="<?php echo esc_attr( get_option('docubot_secondaryColor') ); ?>" /></td>
+                <td><input type="color" name="docubot_secondary_color" value="<?php echo esc_attr( get_option('docubot_secondary_color') ); ?>" /></td>
               </tr>
 
               <tr valign="top">
                 <th scope="row">Secondary Color Contrast</th>
-                <td><input type="color" name="docubot_secondaryColorContrast" value="<?php echo esc_attr( get_option('docubot_secondaryColorContrast') ); ?>" /></td>
+                <td><input type="color" name="docubot_secondary_color_contrast" value="<?php echo esc_attr( get_option('docubot_secondary_color_contrast') ); ?>" /></td>
               </tr>
 
               <tr valign="top">
@@ -238,6 +238,12 @@ class DocubotAdmin {
         register_setting( 'docubot-options', 'docubot_document_1' );
         register_setting( 'docubot-options', 'docubot_doctree_2' );
         register_setting( 'docubot-options', 'docubot_document_2' );
+        register_setting( 'docubot-options', 'docubot_primary_color');
+        register_setting( 'docubot-options', 'docubot_primary_color_contrast');
+        register_setting( 'docubot-options', 'docubot_secondary_color');
+        register_setting( 'docubot-options', 'docubot_secondary_color_contrast');
+        register_setting( 'docubot-options', 'docubot_bg');
+        register_setting( 'docubot-options', 'docubot_document_id');
 
     }
 

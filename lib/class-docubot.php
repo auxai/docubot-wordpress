@@ -82,6 +82,8 @@ class DocubotWP {
 
     public static function docubot_shortcode( $atts ) {
 
+        // $clientid = "57a37bb1612ebf0025beb6ef";
+        // $clientsecret = "(i24DF%7DmYWC7G7eu4cSU%3Cr2xm%7D5X17";
         $clientid = get_option('docubot_api_key');
         $clientsecret = get_option('docubot_api_secret');
         if ( !$clientid || !$clientsecret ) {
@@ -91,15 +93,15 @@ class DocubotWP {
         }
         $a = shortcode_atts( array(
 
-          'documentId' => '',
-          'primaryColor' => '',
-          'primaryColorContrast' => '',
+          'document_id' => '',
+          'primary_color' => '',
+          'primary_color_contrast' => '',
           'bg' => '',
-          'secondaryColor' => '',
-          'secondaryColorContrast' => ''
+          'secondary_color' => '',
+          'secondary_color_contrast' => ''
 
         ), $atts );
-        $embedurl = 'https://docubotembed.1law.com/';
+        $embedurl = "https://docubotembed.1law.com/";
         $useDocubotFiles = get_option('docubot_use_files');
         $instructionText = get_option( 'docubot_instruction_text' );
         if ( !isset( $instructionText ) || $instructionText === '' ) {
@@ -147,15 +149,15 @@ class DocubotWP {
         } else {
 
             //√TODO: BUILD query string with client api keys and document id if applicable document
-            $embedurl .= 'c=' . $clientid .  '&s=' . $clientsecret;
-            
-            if ( $a['documentId'] != '' ) {
+            $embedurl .= '?c=' . $clientid .  '&s=' . $clientsecret;
 
-              $d = $a['documentId'];
+            if ( $a['document_id'] != '' ) {
+
+              $d = str_replace( '#', '%23', $a['document_id'] );
 
             } else {
 
-              $d = get_option('docubot_documentid');
+              $d = str_replace( '#', '%23', get_option( 'docubot_document_id' ) );
 
             }
 
@@ -165,45 +167,45 @@ class DocubotWP {
 
             }
 
-            if ( $a['primaryColor'] != '' ) {
+            if ( $a['primary_color'] != '' ) {
 
-              $primaryColor = $a['primaryColor'];
-
-            } else {
-
-              $primaryColor = get_option('docubot_primaryColor');
-
-            }
-
-            if ( isset($primaryColor) && $primaryColor != '' ) {
-
-              $embedurl .= '&primaryColor=' . $primaryColor;
-
-            }
-
-            if ( $a['primaryColorContrast'] != '' ) {
-
-              $primaryColorContrast = $a['primaryColorContrast'];
+              $primary_color = str_replace( '#', '%23', $a['primary_color'] );
 
             } else {
 
-              $primaryColorContrast = get_option('docubot_primaryColorContrast');
+              $primary_color = str_replace( '#', '%23', get_option( 'docubot_primary_color' ) );
 
             }
 
-            if ( isset($primaryColorContrast) && $primaryColorContrast != '' ) {
+            if ( isset($primary_color) && $primary_color != '' ) {
 
-              $embedurl .= '&primaryColorContrast=' . $primaryColorContrast;
+              $embedurl .= '&primaryColor=' . $primary_color;
+
+            }
+
+            if ( $a['primary_color_contrast'] != '' ) {
+
+              $primary_color_contrast = str_replace( '#', '%23', $a['primary_color_contrast'] );
+
+            } else {
+
+              $primary_color_contrast = str_replace( '#', '%23', get_option( 'docubot_primary_color_contrast' ) );
+
+            }
+
+            if ( isset($primary_color_contrast) && $primary_color_contrast != '' ) {
+
+              $embedurl .= '&primaryColorContrast=' . $primary_color_contrast;
 
             }
 
             if ( $a['bg'] != '' ) {
 
-              $bg = $a['bg'];
+              $bg = str_replace( '#', '%23', $a['bg'] );
 
             } else {
 
-              $bg = get_option('docubot_bg');
+              $bg = str_replace( '#', '%23', get_option( 'docubot_bg' ) );
 
             }
 
@@ -213,35 +215,35 @@ class DocubotWP {
 
             }
 
-            if ( $a['secondaryColor'] != '' ) {
+            if ( $a['secondary_color'] != '' ) {
 
-              $secondaryColor = $a['secondaryColor'];
-
-            } else {
-
-              $secondaryColor = get_option('docubot_secondaryColor');
-
-            }
-
-            if ( isset($secondaryColor) && $secondaryColor != '' ) {
-
-              $embedurl .= '&secondaryColor=' . $secondaryColor;
-
-            }
-
-            if ( $a['secondaryColorContrast'] != '' ) {
-
-              $secondaryColorContrast = $a['secondaryColorContrast'];
+              $secondary_color = str_replace( '#', '%23', $a['secondary_color'] );
 
             } else {
 
-              $secondaryColorContrast = get_option('docubot_secondaryColorContrast');
+              $secondary_color = str_replace( '#', '%23', get_option( 'docubot_secondary_color' ) );
 
             }
 
-            if ( isset($secondaryColorContrast) && $secondaryColorContrast != '' ) {
+            if ( isset($secondary_color) && $secondary_color != '' ) {
 
-              $embedurl .= '&secondaryColorContrast=' . $secondaryColorContrast;
+              $embedurl .= '&secondaryColor=' . $secondary_color;
+
+            }
+
+            if ( $a['secondary_color_contrast'] != '' ) {
+
+              $secondary_color_contrast = str_replace( '#', '%23', $a['secondary_color_contrast'] );
+
+            } else {
+
+              $secondary_color_contrast = str_replace( '#', '%23', get_option( 'docubot_secondary_color_contrast' ) );
+
+            }
+
+            if ( isset($secondary_color_contrast) && $secondary_color_contrast != '' ) {
+
+              $embedurl .= '&secondaryColorContrast=' . $secondary_color_contrast;
 
             }
 
