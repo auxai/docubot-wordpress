@@ -42,37 +42,25 @@ class DocubotWP {
         add_action( 'wp_enqueue_scripts', __CLASS__ . '::docubot_assets' );
         add_action( 'admin_menu', 'my_plugin_menu' );
         add_shortcode( 'Docubot', __CLASS__ . '::docubot_shortcode' );
-        add_filter( 'query_vars', __CLASS__ . '::add_query_vars' );
-
-    }
-
-    public static function add_query_vars( $vars ) {
-
-        $vars[] = 'doctype';
-        return $vars;
 
     }
 
 
     public static function docubot_assets() {
 
-        wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js', '', '', true );
+        wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js' );
         wp_enqueue_script( 'docubot' );
         if ( get_option('docubot_use_files') == '1' ) {
-
             //√TODO: Get file info, pass it to js to handle file based docubot usage
+            $documents = NULL;
             wp_localize_script(
               'docubot',
-              'docubot_script',
+              'docubot_documents',
               array(
-                // 'docNameOne' => 'docubot_doctree_1',
-                // 'docNameTwo' => 'docubot_doctree_2',
-                // 'docNameThree' => 'docubot_doctree_3'
-                'initial_nonce' => wp_create_nonce( 'docubot-message-nonce' ),
-                'jszip_url' => plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/vendor/jszip.min.js',
-                'adminjs_url' => admin_url( 'admin-media.php' ),
-                'plugin_url' => plugin_dir_url( dirname( __FILE__ ) ) )
-              );
+                'documents' => $documents,
+                'embedurl' => 'https://docubotembed.1law.com/',
+              )
+            );
 
         };
         wp_register_style( 'docubot_style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/docubot.css' );
@@ -82,8 +70,6 @@ class DocubotWP {
 
     public static function docubot_shortcode( $atts ) {
 
-        // $clientid = "57a37bb1612ebf0025beb6ef";
-        // $clientsecret = "(i24DF%7DmYWC7G7eu4cSU%3Cr2xm%7D5X17";
         $clientid = get_option('docubot_api_key');
         $clientsecret = get_option('docubot_api_secret');
         if ( !$clientid || !$clientsecret ) {

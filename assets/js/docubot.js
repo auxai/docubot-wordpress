@@ -15,20 +15,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 ;(function(window,$,undefined){
-
-    var threadId = undefined;
-    var userId = undefined;
-    var variables = undefined;
+    var using_files = false;
+    var variables_string = undefined;
     var docTree = undefined;
     var doc = undefined;
-    var nonce = docuajax_object.initial_nonce;
-    var firstMessage = true;
-    var queryParams = window.location.search.substring(1).split("&").map(function(e) {
-         return e.split("=");
-      }).reduce(function(val, e) {
-           val[e[0]] = decodeURIComponent(e[1]);
-           return val;
-       }, {});
+    var embedurl = undefined;
+    // if (docubot_documents !== undefined) {
+    //     using_files == true;
+    //     embedurl = docubot_documents.embedurl;
+    // }
+
     $(function() {
         // Docubot Animation Stuff
         setupDocubotAnimation();
@@ -42,152 +38,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             return false;
         });
         // End Docubot Animation Stuff
-        if (queryParams['doctype'] || queryParams['doc']) {
-            firstMessage = false;
-            createDocType();
-        } else if (queryParams['docbuilderfile']) {
-          handleExternalDocubotFile(queryParams['docbuilderfile']);
-        }
-        var shouldPrintMessage = true;
-        $(".docubot_message_form").on("submit", function(e){
-            setLoading(true);
-            e.preventDefault();
-            $.ajax({
-                url: docuajax_object.ajax_url,
-                method: "POST",
-                data: {
-                    "action": "docubot_send_message",
-                    "thread": threadId,
-                    "sender": userId,
-                    "variables": variables ? JSON.stringify(variables) : undefined,
-                    "docTree": docTree ? JSON.stringify(docTree) : undefined,
-                    "document": doc ? JSON.stringify(doc) : undefined,
-                    "message": $(".docubot_message").val(),
-                    "security": nonce
-                },
-                dataType: "json",
-                success: sendMessageSuccess,
-                error: error
-            });
-            if (shouldPrintMessage) {
-              printMessageFromUser($(".docubot_message").val());
-            }
-            shouldPrintMessage = true;
-            $(".docubot_message").val("");
-            if (firstMessage) {
-                firstMessageSent();
-                return;
-            }
 
-        });
+
+        //TODO: when button clicked load correct document
         $(".docubot_document_button").on("click", function() {
-          shouldPrintMessage = false;
-          $(".docubot_message").val($(this).data("value"));
-          $(".docubot_message_form").trigger("submit");
+
         });
-        $(".docubot_message_accessory").on("click", "button", function() {
-          $(".docubot_message").val($(this).data("value"));
-          $(".docubot_message_form").trigger("submit");
-        });
+
+        //TODO: add message listener
     });
-    function createDocType() {
-        setLoading(true);
-        $.ajax({
-            url: docuajax_object.ajax_url,
-            method: "POST",
-            data: {
-                "action": "docubot_send_message",
-                "thread": threadId,
-                "sender": userId,
-                "variables": variables ? JSON.stringify(variables) : undefined,
-                "docTree": docTree ? JSON.stringify(docTree) : undefined,
-                "document": doc ? JSON.stringify(doc) : undefined,
-                "message": queryParams['doctype'] || queryParams['doc'],
-                "security": nonce
-            },
-            dataType: "json",
-            success: sendMessageSuccess,
-            error: error,
-        });
-    }
-    function sendMessageSuccess(response) {
 
-        setLoading(false);
-        if (response.error == undefined) {
-            threadId = response.meta.threadId;
-            userId = response.meta.userId;
-            variables = response.data.variables;
-            docTree = response.data.docTree;
-            doc = response.data.document;
-            nonce = response.meta.nonce;
-            for (i = 0; i < response.data.messages.length; i++) {
-                printMessageFromDocubot(response.data.messages[i], response.meta.messageMetaData);
-            }
-            return;
-        }
-        console.log(response);
-
-    }
-    function error(response) {
-        setLoading(false);
-        console.log(response);
-    }
-    function firstMessageSent(hideInstantly) {
-      stopDocubotAnimation();
-      $(".docubot_container").addClass("docubot_conversation_started");
-      $(".docubot_message_display").trigger('new_message');
-      firstMessage = false;
-      if (hideInstantly) {
-        $(".docubot_getstarted_text").hide();
-        $(".sprite-Docubot").hide();
-      } else {
-        $(".docubot_container").trigger('docubot_animation');
-        $(".docubot_getstarted_text").animate({height: 0}, 500);
-        $(".sprite-Docubot").animate({height: 0}, 500);
-      }
-    }
-    function displayMessageAccessoryView(message, messageMetaData) {
-      $(".docubot_message_accessory").empty();
-      if (!messageMetaData || $.isEmptyObject(messageMetaData)) {
-        $(".docubot_message_accessory").hide();
-        return;
-      }
-      var meta = messageMetaData[message];
-      if (!meta) {
-        $(".docubot_message_accessory").hide();
-        return;
-      }
-      if (meta.entityType === 'boolean') {
-        $(".docubot_message_accessory").append("<button type=\"button\" data-value=\"Yes\">Yes</button>");
-        $(".docubot_message_accessory").append("<button type=\"button\" data-value=\"No\">No</button>");
-        $(".docubot_message_accessory").show();
-      } else if (meta.choices && !$.isEmptyObject(meta.choices)) {
-        for (var choice in meta.choices) {
-          $(".docubot_message_accessory").append("<button type=\"button\" data-value=\"" + choice + "\">" + choice + "</button>");
-        }
-        $(".docubot_message_accessory").show();
-      }
-    }
-    function printMessageFromUser(message) {
-        $(".docubot_message_display").append("<li class=\"docubot_from_user\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugin_url+"assets/img/anonymous-user.svg);\"/></div><div class=\"docubot_from_message\">"+message+"</div></li>");
-        $(".docubot_message_display").trigger('new_message');
-        displayMessageAccessoryView(null, null);
-    }
-    function printMessageFromDocubot(message, messageMetaData) {
-        if (message === "") {
-            return;
-        }
-        $(".docubot_message_display").append("<li class=\"docubot_from_docubot\"><div class=\"docubot_from_img_container\"><div class=\"docubot_from_img\" style=\"background-image: url( "+docuajax_object.plugin_url+"assets/img/docubot-chat-profile.svg);\"/></div><div class=\"docubot_from_message\">"+message.replace(/\n/g, "<br />")+"</div></li>");
-        $(".docubot_message_display").trigger('new_message');
-        displayMessageAccessoryView(message, messageMetaData);
-    }
-    function setLoading(loading) {
-        if (loading) {
-            $(".docubot_loading").removeClass("docubot_hidden");
-        } else {
-            $(".docubot_loading").addClass("docubot_hidden");
-        }
-    }
+    //TODO: updatechatui
 
     var docubotAnimationInterval;
     var docubotAnimationTimeout;
@@ -249,50 +110,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             docubotAnimationTimeout = null;
 
         }
-
-    }
-
-    function handleExternalDocubotFile(file) {
-
-      firstMessageSent(true);
-      setLoading(true);
-      $.getScript(docuajax_object.jszip_url, function() {
-
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function(){
-          if (this.readyState == 4 && this.status == 200) {
-
-            JSZip.loadAsync(this.response).then(function(zip) {
-              zip.forEach(function(path, zipEntry) {
-                if (path == 'doc-tree.json') {
-                  zipEntry.async('string').then(function(content) {
-                    try {
-                      docTree = JSON.parse(content);
-                      printMessageFromDocubot(docTree.entryQuestion.question);
-                    } catch (e) {
-                      console.error('DocTree Unreadable!');
-                    }
-                    setLoading(false);
-                  });
-                } else if (path == 'document.json') {
-                  zipEntry.async('string').then(function(content) {
-                    try {
-                      doc = JSON.parse(content);
-                    } catch (e) {
-                      console.error('Document Unreadable!');
-                    }
-                  });
-                }
-              });
-            });
-
-          }
-        }
-        xhr.open('GET', file);
-        xhr.responseType = 'blob';
-        xhr.send();
-
-      });
 
     }
 

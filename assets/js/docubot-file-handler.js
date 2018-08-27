@@ -41,8 +41,10 @@ $( function() {
       return;
     }
     var fileExtension = file.name.split('.').slice(-1)[0].toLowerCase();
-    var validFileExtensions = ['docubot', 'zip'];
+    var validFileExtensions = ['docubot', 'botineer', 'zip'];
     if (validFileExtensions.indexOf(fileExtension) === -1) {
+      console.error("Invalid file extension: " + fileExtension + ". Expected file with extension .docubot, .botineer or .zip.");
+      alert("Invalid file extension: " + fileExtension + ". Expected file with extension .docubot, .botineer or .zip.");
       return;
     }
     JSZip.loadAsync(file)
