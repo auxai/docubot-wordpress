@@ -41,12 +41,88 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
         //TODO: when button clicked load correct document
-        $(".docubot_document_button").on("click", function() {
-
+        $(".docubot_document_button").on("click", function(e) {
+          let docNumber = e.target.dataset.value
+          if ( docNumber = 'doc1' ) {
+            doc = docubot_documents.documents.doc1.document;
+            docTree = docubot_documents.documents.doc1.doctree;
+          } else if ( docnumber = 'doc2' ) {
+            doc = docubot_documents.documents.doc2.document;
+            docTree = docubot_documents.documents.doc2.doctree;
+          } else if ( docnumber = 'doc3' ) {
+            doc = docubot_documents.documents.doc3.document;
+            docTree = docubot_documents.documents.doc3.doctree;
+          }
         });
 
         //TODO: add message listener
-    });
+        //Convert to JS
+        $(message, function(e) {
+        // @HostListener('window:message', ['$event'])
+        //   onWindowMessage(e: MessageEvent) {
+            if (e.data && e.data.type === 'docubot-embed-loaded') {
+              this._hasChatUILoaded = true;
+              this.updateChatUI();
+            } else if (e.data && e.data.type === 'docubot-embed-variables-updated') {
+              try {
+                this._variablesStr = JSON.stringify(e.data.data.variables, null, 2);
+              } catch (e) {
+                console.error;
+              }
+            }
+          }
+
+          private updateChatUI() {
+            if (!this._hasChatUILoaded) {
+              return;
+            }
+            if (this._pdfGetter) {
+              this._pdfGetter().subscribe(f => {
+                this.chatUI.nativeElement.contentWindow.postMessage(
+                  {
+                    type: 'docubot-data',
+                    data: {
+                      document: this._document,
+                      docTree: this._docTree,
+                      variables: this.verifyVarStr(),
+                      fillablePDF: f,
+                      showsPreviewDocButton: true
+                    }
+                  },
+                  environment.embedUrl
+                );
+              });
+            } else {
+              this.chatUI.nativeElement.contentWindow.postMessage(
+                {
+                  type: 'docubot-data',
+                  data: {
+                    document: this._document,
+                    docTree: this._docTree,
+                    variables: this.verifyVarStr(),
+                    fillablePDF: null,
+                    showsPreviewDocButton: true
+                  }
+                },
+                environment.embedUrl
+              );
+            }
+          }
+
+          private verifyVarStr(): any {
+            let vars: any;
+            if (!!this._variablesStr) {
+              try {
+                vars = JSON.parse(this._variablesStr);
+              } catch (e) {
+                return null;
+              }
+            } else {
+              vars = {};
+            }
+            return vars;
+          }
+      });
 
     //TODO: updatechatui
 

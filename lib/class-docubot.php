@@ -51,8 +51,17 @@ class DocubotWP {
         wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js' );
         wp_enqueue_script( 'docubot' );
         if ( get_option('docubot_use_files') == '1' ) {
-            //√TODO: Get file info, pass it to js to handle file based docubot usage
-            $documents = NULL;
+            $doc1 = get_option( 'docubot_document_1' );
+            $doc2 = get_option( 'docubot_document_2' );
+            $doc3 = get_option( 'docubot_document_3' );
+            // $doctree1 = get_option( 'docubot_doctree_1' );
+            // $doctree2 = get_option( 'docubot_doctree_2' );
+            // $doctree3 = get_option( 'docubot_doctree_3' );
+            $documents = array(
+              'doc1' => array( 'document' => $doc1, 'doctree' => $doctree ),
+              'doc2' => array( 'document' => $doc2, 'doctree' => $doctree ),
+              'doc3' => array( 'document' => $doc3, 'doctree' => $doctree )
+            );
             wp_localize_script(
               'docubot',
               'docubot_documents',
@@ -134,7 +143,6 @@ class DocubotWP {
 
         } else {
 
-            //√TODO: BUILD query string with client api keys and document id if applicable document
             $embedurl .= '?c=' . $clientid .  '&s=' . $clientsecret;
 
             if ( $a['document_id'] != '' ) {
