@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     var docTree = undefined;
     var doc = undefined;
     var embedurl = undefined;
-    // if (docubot_documents !== undefined) {
-    //     using_files == true;
-    //     embedurl = docubot_documents.embedurl;
-    // }
 
     $(function() {
         // Docubot Animation Stuff
@@ -40,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         // End Docubot Animation Stuff
 
 
+<<<<<<< HEAD
         //TODO: when button clicked load correct document
         $(".docubot_document_button").on("click", function(e) {
           let docNumber = e.target.dataset.value
@@ -123,9 +120,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             return vars;
           }
       });
+=======
+        $(".docubot_document_button").on("click", function() {
 
-    //TODO: updatechatui
+        });
 
+    });
+>>>>>>> e1b3d8ab2d3cacdc88c8137a326ea705160021e7
+
+    //Chat UI
     var docubotAnimationInterval;
     var docubotAnimationTimeout;
     function animateDocubot(cb) {
