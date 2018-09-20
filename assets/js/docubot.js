@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     var docTree = undefined;
     var doc = undefined;
     var embedurl = undefined;
-    // if (docubot_documents !== undefined) {
-    //     using_files == true;
-    //     embedurl = docubot_documents.embedurl;
-    // }
 
     $(function() {
         // Docubot Animation Stuff
@@ -40,16 +36,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         // End Docubot Animation Stuff
 
 
-        //TODO: when button clicked load correct document
         $(".docubot_document_button").on("click", function() {
 
         });
 
-        //TODO: add message listener
     });
 
-    //TODO: updatechatui
-
+    //Chat UI
     var docubotAnimationInterval;
     var docubotAnimationTimeout;
     function animateDocubot(cb) {
