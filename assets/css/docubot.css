@@ -17,6 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 .docubot_hidden {
     display: none;
 }
+#docubot_iframe {
+    max-height: 100%;
+    height: 400px;
+}
 .docubot_container {
     position: relative;
 }

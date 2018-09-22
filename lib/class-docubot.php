@@ -49,29 +49,28 @@ class DocubotWP {
     public static function docubot_assets() {
 
         wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js' );
-        wp_enqueue_script( 'docubot' );
         if ( get_option('docubot_use_files') == '1' ) {
             $doc1 = get_option( 'docubot_document_1' );
             $doc2 = get_option( 'docubot_document_2' );
             $doc3 = get_option( 'docubot_document_3' );
-            // $doctree1 = get_option( 'docubot_doctree_1' );
-            // $doctree2 = get_option( 'docubot_doctree_2' );
-            // $doctree3 = get_option( 'docubot_doctree_3' );
+            $doctree1 = get_option( 'docubot_doctree_1' );
+            $doctree2 = get_option( 'docubot_doctree_2' );
+            $doctree3 = get_option( 'docubot_doctree_3' );
             $documents = array(
-              'doc1' => array( 'document' => $doc1, 'doctree' => $doctree ),
-              'doc2' => array( 'document' => $doc2, 'doctree' => $doctree ),
-              'doc3' => array( 'document' => $doc3, 'doctree' => $doctree )
+              'doc1' => array( 'document' => $doc1, 'doctree' => $doctree1 ),
+              'doc2' => array( 'document' => $doc2, 'doctree' => $doctree2 ),
+              'doc3' => array( 'document' => $doc3, 'doctree' => $doctree3 )
             );
             wp_localize_script(
               'docubot',
               'docubot_documents',
               array(
                 'documents' => $documents,
-                'embedurl' => 'https://docubotembed.1law.com/',
+                'embedurl' => 'https://docubotembed.1law.com/'
               )
             );
-
-        };
+        }
+        wp_enqueue_script( 'docubot' );
         wp_register_style( 'docubot_style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/docubot.css' );
         wp_enqueue_style( 'docubot_style' );
 
@@ -260,20 +259,21 @@ class DocubotWP {
             if ( $useDocubotFiles == '1' ) { ?>
             <div class="docubot_document_buttons">
               <?php if ( $docNameOne ) { ?>
-                <button type="button" data-value="<?php echo $docNameOne; ?>" class="docubot_document_button"><?php echo $docNameOne; ?></button>
+                <button type="button" data-value="doc1" class="docubot_document_button"><?php echo $docNameOne; ?></button>
               <?php } ?>
               <?php if ( $docNameTwo ) { ?>
-                <button type="button" data-value="<?php echo $docNameTwo; ?>" class="docubot_document_button"><?php echo $docNameTwo; ?></button>
+                <button type="button" data-value="doc2" class="docubot_document_button"><?php echo $docNameTwo; ?></button>
               <?php } ?>
               <?php if ( $docNameThree ) { ?>
-                <button type="button" data-value="<?php echo $docNameThree; ?>" class="docubot_document_button"><?php echo $docNameThree; ?></button>
+                <button type="button" data-value="doc3" class="docubot_document_button"><?php echo $docNameThree; ?></button>
               <?php } ?>
             </div>
             <?php } ?>
             <div class="docubot_message_container">
-                <iframe src="<?php echo $embedurl ?>"/>
+                <iframe id="docubot_iframe" src="<?php echo $embedurl ?>"/>
             </div>
         </div>
+        <div onclick="scrollBottom()"/>
 
     <?php }
 
