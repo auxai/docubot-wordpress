@@ -50,7 +50,6 @@ class DocubotWP {
 
         wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js' );
         if ( get_option('docubot_use_files') == '1' ) {
-<<<<<<< HEAD
             $doc1 = get_option( 'docubot_document_1' );
             $doc2 = get_option( 'docubot_document_2' );
             $doc3 = get_option( 'docubot_document_3' );
@@ -62,9 +61,6 @@ class DocubotWP {
               'doc2' => array( 'document' => $doc2, 'doctree' => $doctree2 ),
               'doc3' => array( 'document' => $doc3, 'doctree' => $doctree3 )
             );
-=======
-            $documents = NULL;
->>>>>>> e1b3d8ab2d3cacdc88c8137a326ea705160021e7
             wp_localize_script(
               'docubot',
               'docubot_documents',

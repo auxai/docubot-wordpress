@@ -14,124 +14,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-;(function(window,$,undefined){
-    var using_files = false;
-    var variables_string = undefined;
-    var docTree = undefined;
-    var doc = undefined;
-    var embedurl = undefined;
-
-    $(function() {
-        // Docubot Animation Stuff
-        setupDocubotAnimation();
-        $(".sprite-Docubot").on("click", function(e) {
-            e.preventDefault();
-            animateDocubot(function() {
-
-                setupDocubotAnimation();
-
-            });
-            return false;
-        });
-        // End Docubot Animation Stuff
-
-
-<<<<<<< HEAD
-        //TODO: when button clicked load correct document
-        $(".docubot_document_button").on("click", function(e) {
-          let docNumber = e.target.dataset.value
-          if ( docNumber = 'doc1' ) {
-            doc = docubot_documents.documents.doc1.document;
-            docTree = docubot_documents.documents.doc1.doctree;
-          } else if ( docnumber = 'doc2' ) {
-            doc = docubot_documents.documents.doc2.document;
-            docTree = docubot_documents.documents.doc2.doctree;
-          } else if ( docnumber = 'doc3' ) {
-            doc = docubot_documents.documents.doc3.document;
-            docTree = docubot_documents.documents.doc3.doctree;
-          }
-        });
-
-        //TODO: add message listener
-        //Convert to JS
-        $(message, function(e) {
-        // @HostListener('window:message', ['$event'])
-        //   onWindowMessage(e: MessageEvent) {
-            if (e.data && e.data.type === 'docubot-embed-loaded') {
-              this._hasChatUILoaded = true;
-              this.updateChatUI();
-            } else if (e.data && e.data.type === 'docubot-embed-variables-updated') {
-              try {
-                this._variablesStr = JSON.stringify(e.data.data.variables, null, 2);
-              } catch (e) {
-                console.error;
-              }
-            }
-          }
-
-          private updateChatUI() {
-            if (!this._hasChatUILoaded) {
-              return;
-            }
-            if (this._pdfGetter) {
-              this._pdfGetter().subscribe(f => {
-                this.chatUI.nativeElement.contentWindow.postMessage(
-                  {
-                    type: 'docubot-data',
-                    data: {
-                      document: this._document,
-                      docTree: this._docTree,
-                      variables: this.verifyVarStr(),
-                      fillablePDF: f,
-                      showsPreviewDocButton: true
-                    }
-                  },
-                  environment.embedUrl
-                );
-              });
-            } else {
-              this.chatUI.nativeElement.contentWindow.postMessage(
-                {
-                  type: 'docubot-data',
-                  data: {
-                    document: this._document,
-                    docTree: this._docTree,
-                    variables: this.verifyVarStr(),
-                    fillablePDF: null,
-                    showsPreviewDocButton: true
-                  }
-                },
-                environment.embedUrl
-              );
-            }
-          }
-
-          private verifyVarStr(): any {
-            let vars: any;
-            if (!!this._variablesStr) {
-              try {
-                vars = JSON.parse(this._variablesStr);
-              } catch (e) {
-                return null;
-              }
-            } else {
-              vars = {};
-            }
-            return vars;
-          }
-      });
-=======
-        $(".docubot_document_button").on("click", function() {
-
-        });
-
-    });
->>>>>>> e1b3d8ab2d3cacdc88c8137a326ea705160021e7
-
-    //Chat UI
-    var docubotAnimationInterval;
-    var docubotAnimationTimeout;
-    function animateDocubot(cb) {
 ; (function (window, $, undefined) {
   var docTree = undefined;
   var doc = undefined;
@@ -157,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     chatUI = $("#docubot_iframe")[0];
 
-    //Buttons
+    //Buttons and document files
     $(".docubot_document_buttons").on("click", function (e) {
       let docNumber = e.target.dataset.value
       if (docNumber == 'doc1') {
@@ -178,7 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   });
 
-  //TODO: updatechatui
   function updateChatUI() {
     chatUI.contentWindow.postMessage(
       {
