@@ -15,6 +15,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+// namespace OneLaw;
 include 'src/docubot.php';
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -85,6 +86,17 @@ class DocubotWP {
             return;
 
         }
+        $useQueryParam = false;
+        $docId = '';
+        if (isset($_GET['doc'])) {
+          $docname = $_GET['doc'];
+          $docubot = new \OneLaw\Docubot( urldecode( $clientid ), urldecode( $clientsecret ), self::$docubotAPIURL );
+          $result = $docubot->get_document_id($docname);
+          if (!is_a( $result, '\OneLaw\DocubotError', true )) {
+            $useQueryParam = true;
+            $docId = $result;
+          };
+        }
         $a = shortcode_atts( array(
 
           'document_id' => '',
@@ -97,6 +109,9 @@ class DocubotWP {
         ), $atts );
         $embedurl = "https://docubotembed.1law.com/";
         $useDocubotFiles = get_option('docubot_use_files');
+        if ($useQueryParam) {
+          $useDocubotFiles = '0';
+        }
         $instructionText = get_option( 'docubot_instruction_text' );
         if ( !isset( $instructionText ) || $instructionText === '' ) {
 
@@ -144,13 +159,17 @@ class DocubotWP {
 
             $embedurl .= '?c=' . $clientid .  '&s=' . $clientsecret;
 
-            if ( $a['document_id'] != '' ) {
+            if ($docId != '') {
 
-              $d = str_replace( '#', '%23', $a['document_id'] );
+              $d = $docId;
+
+            } else if ( $a['document_id'] != '' ) {
+
+              $d = $a['document_id'];
 
             } else {
 
-              $d = str_replace( '#', '%23', get_option( 'docubot_document_id' ) );
+              $d = get_option( 'docubot_document_id' );
 
             }
 

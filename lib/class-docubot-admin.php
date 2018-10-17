@@ -238,6 +238,8 @@ class DocubotAdmin {
         register_setting( 'docubot-options', 'docubot_document_1' );
         register_setting( 'docubot-options', 'docubot_doctree_2' );
         register_setting( 'docubot-options', 'docubot_document_2' );
+        register_setting( 'docubot-options', 'docubot_doctree_3' );
+        register_setting( 'docubot-options', 'docubot_document_3' );
         register_setting( 'docubot-options', 'docubot_primary_color');
         register_setting( 'docubot-options', 'docubot_primary_color_contrast');
         register_setting( 'docubot-options', 'docubot_secondary_color');

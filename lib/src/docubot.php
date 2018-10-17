@@ -383,4 +383,44 @@ class Docubot {
 
     }
 
+    /**
+     * Retrieve a document ID given a document name from Docubot.
+     *
+     * @param string $docname the name of the document for which is being retrieved.
+     *
+     * @return string|DocubotError
+     */
+    public function get_document_id( $docname ) {
+
+      $ch = curl_init( $this->APIURLBase . '/api/v1/documenttreeid/byname?' . http_build_query( ['name' => $docname] ) );
+      curl_setopt( $ch, CURLOPT_USERPWD, $this->APIKey . ':' . $this->APISecret );
+      curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type:application/x-www-form-urlencoded' ) );
+      curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+      curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+      $result = curl_exec( $ch );
+      if ( $result === false ) {
+          echo "here 1";
+          $err = new DocubotError();
+          $err->errors = [ 'errors' => curl_error( $ch ) ];
+          curl_close( $ch );
+          return $err;
+
+      }
+      $info = curl_getinfo( $ch );
+      curl_close( $ch );
+      $result = json_decode( $result, true );
+      if ( $info['http_code'] < 200 || $info['http_code'] > 299 ) {
+
+          echo "here 2";
+          var_dump($info);
+          $err = new DocubotError();
+          $err->errors = [ 'errors' => $result['errors'] ];
+          return $err;
+
+      }
+      $rData = $result['data'];
+      return $rData['id'];
+
+    }
+
 }
