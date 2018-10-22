@@ -88,8 +88,13 @@ class DocubotWP {
         }
         $useQueryParam = false;
         $docId = '';
-        if (isset($_GET['doc'])) {
+        $docname = '';
+        if ( isset( $_GET['doc'] ) ) {
           $docname = $_GET['doc'];
+        } else if ( isset( $_GET['doctype'] ) ) {
+          $docname = $_GET['doctype'];
+        }
+        if ( $docname != '' ) {
           $docubot = new \OneLaw\Docubot( urldecode( $clientid ), urldecode( $clientsecret ), self::$docubotAPIURL );
           $result = $docubot->get_document_id($docname);
           if (!is_a( $result, '\OneLaw\DocubotError', true )) {
