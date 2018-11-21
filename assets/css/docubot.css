@@ -14,9 +14,268 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+@media(min-width:415px) {
+
+    .docubot_popup .docubot_message_container {
+        height: 400px;
+        padding: 0;
+    }
+
+    .docubot_popup .docubot_logo {
+        width: 30%;
+    }
+
+    .docubot_popup {
+        position: fixed;
+        bottom: -360px;
+        width: 300px;
+        -webkit-transition: 1s ease-in-out;
+        -moz-transition: 1s ease-in-out;
+        -o-transition: 1s ease-in-out;
+        transition: 1s ease-in-out;
+        border-radius: 2px;
+        z-index: 2000;
+    }
+
+    .docubot_popup.docubot_left {
+        left: 3%;
+    }
+
+    .docubot_popup.docubot_right {
+        right: 3%;
+    }
+
+    .docubot_popup .docubot_body, .docubot_popup .docubot_header {
+        box-shadow: 0 -0.15em 0.35em 0 rgba(0,0,0,.135);
+        z-index: 2;
+    }
+
+    .docubot_body #docubot_iframe {
+        height: 360px;
+    }
+
+    .docubot_header {
+        cursor: pointer;
+        background-color: #1F5EAA;
+        height: 50px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 2;
+    }
+
+    .docubot_header h3 {
+        color: #FFFFFF;
+        font-size: 100%;
+        margin-left: 5%;
+    }
+
+    .popup_sprite_docubot {
+        height: 40px;
+        margin-right: 5%;
+        background-color: white;
+        border-radius: 3px;
+    }
+
+    .docubot_body {
+        height: 360px;
+        width: 300px;
+        background-color: #FFFFFF;
+    }
+
+    .docubot_body .docubot_document_buttons {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .docubot_body .docubot_document_button {
+        background-color: #19499b;
+        height: 100%;
+        width: 90%;
+        margin: 4px;
+        border: 0px;
+        border-radius: 0;
+        color: #ffffff;
+        font-size: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .docubot_body .docubot_document_button:hover {
+        color: #EEEEEE;
+        background-color: #59A7EC;
+    }
+
+    .docubot_body .docubot_logo_container {
+        margin: 0;
+        padding: 0;
+    }
+
+    .docubot_body .docubot_site_logo_container {
+        margin: 0;
+    }
+
+    .docubot_body .docubot_container {
+        margin: 0;
+        padding: 0;
+    }
+
+    .docubot_show {
+        transition-delay: .5s;
+        transform: translateY(-360px)
+    }
+
+    .slide_off_sprite_docubot{
+        cursor: pointer;
+        height: 87px;
+        right: 0;
+        -webkit-transition: 2.7s ease-in-out;
+        -moz-transition: 2.7s ease-in-out;
+        -o-transition: 2.7s ease-in-out;
+        transition: 2.7s ease-in-out;
+        z-index: -1;
+    }
+
+    .slide_off_docubot {
+      z-index: 0;
+      display: flex;
+    }
+    .docubot_left .slide_off_docubot {
+        justify-content: flex-start;
+    }
+
+    .docubot_right .slide_off_docubot {
+        justify-content: flex-end;
+    }
+
+    .docubot_hide {
+        transform: translateY(3000px)
+    }
+
+}
+
+@media(max-width:414px) {
+
+    .docubot_popup .docubot_message_container {
+        height: 500px;
+        padding: 0;
+    }
+
+    .docubot_popup {
+        position: fixed;
+        bottom: -550px;
+        right: 0;
+        width: 100%;
+        -webkit-transition: 1s ease-in-out;
+        -moz-transition: 1s ease-in-out;
+        -o-transition: 1s ease-in-out;
+        transition: 1s ease-in-out;
+        border-radius: 2px;
+        z-index: 2000;
+    }
+
+    .docubot_body #docubot_iframe {
+        height: 450px;
+        width: 100%;
+    }
+
+    .docubot_header {
+        background-color: #1F5EAA;
+        height: 50px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .docubot_header .chat_docubot {
+        color: #FFFFFF;
+        font-size: 20px;
+    }
+
+    .slide_off_docubot{
+        display: flex;
+    }
+
+    .docubot_right .slide_off_docubot {
+        justify-content: flex-end;
+    }
+
+    .docubot_left .slide_off_docubot {
+        justify-content: flex-start;
+    }
+
+    .slide_off_sprite_docubot{
+        height: 75px;
+        right: 0;
+        -webkit-transition: 2.7s ease-in-out;
+        -moz-transition: 2.7s ease-in-out;
+        -o-transition: 2.7s ease-in-out;
+        transition: 2.7s ease-in-out;
+    }
+
+    .popup_sprite_docubot {
+        display: none;
+    }
+
+    .docubot_body {
+        height: 500px;
+        width: 100%;
+        background-color: #FFFFFF;
+    }
+
+    .docubot_body .docubot_document_button {
+        background-color: #19499b;
+        height: 55px;
+        width: 90%;
+        margin: 10px;
+        border: 0px;
+        border-radius: 0;
+        color: #ffffff;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .docubot_body .docubot_document_button:hover {
+        color: #EEEEEE;
+        background-color: #59A7EC;
+    }
+
+    .docubot_body .docubot_logo_container {
+        margin: 0;
+        padding: 0;
+    }
+
+    .docubot_body .docubot_site_logo_container {
+        margin: 0;
+    }
+
+    .docubot_body .docubot_container {
+        margin: 0;
+        padding: 0;
+    }
+
+    .docubot_show {
+        transition-delay: .5s;
+        transform: translateY(-500px)
+    }
+
+    .docubot_hide {
+        transform: translateY(3000px)
+    }
+}
+
 .docubot_hidden {
     display: none;
 }
+
 #docubot_iframe {
     max-height: 100%;
     height: 400px;
@@ -24,25 +283,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 .docubot_container {
     position: relative;
 }
+
 .docubot_logo_container {
     position: relative;
     padding-top: 25px;
 }
+
 .docubot_logo {
-    width:215px;
+    width: 215px;
     max-width: 45%;
     display: block;
     margin: auto;
     margin-bottom: 15px;
     position: relative;
 }
+
 .docubot_logo::before {
     content: "";
     display: block;
-    width:100%;
+    width: 100%;
     height: 0;
     padding-top: 13.27%;
 }
+
 .docubot_logo svg {
     position: absolute;
     top: 0;
@@ -50,17 +313,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     width: 100%;
     height: 100%;
 }
+
 .docubot_logo svg path {
     transition: fill 0.5s ease-in-out;
 }
+
 .docubot_site_logo_container {
     text-align: center;
     margin-bottom: 15px;
 }
+
 .docubot_site_logo {
     max-height: 25px;
     max-width: 25%;
 }
+
 .docubot_getstarted_text {
     color: #B4B4B4;
     font-size: 20px;
@@ -71,18 +338,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     position: relative;
     transition: opacity 0.5s ease-in-out, font 0.5s ease-in-out;
 }
+
 .docubot_message_container {
     padding-top: 16px;
 }
+
 .docubot_message_accessory {
-  width: 90%;
-  position: relative;
-  margin: auto;
-  overflow-x: auto;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-  margin-bottom: 8px;
+    width: 90%;
+    position: relative;
+    margin: auto;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 8px;
 }
+
 .docubot_message_accessory button {
     background-color: #2674B9;
     border: 0px;
@@ -94,13 +364,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     padding: 10px;
     margin-left: 8px;
 }
+
 .docubot_message_accessory button:first-child {
     margin-left: 0;
 }
+
 .docubot_message_accessory button:hover {
-  color: #EEEEEE;
-  background-color: #59A7EC;
+    color: #EEEEEE;
+    background-color: #59A7EC;
 }
+
 .docubot_message_div {
     height: 50px;
     width: 650px;
@@ -109,6 +382,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     margin: auto;
     transition: width 0.5s ease-in-out;
 }
+
 input[type="text"].docubot_message {
     border: none;
     border-radius: 5px;
@@ -120,6 +394,7 @@ input[type="text"].docubot_message {
     color: #757575;
     display: block;
 }
+
 input[type="text"]:focus.docubot_message {
     border: none;
     border-radius: 5px;
@@ -132,9 +407,11 @@ input[type="text"]:focus.docubot_message {
     display: block;
     outline: 0;
 }
+
 input[type=text]::-ms-clear {
     display: none;
 }
+
 .docubot_send_message.docubot_letsgo {
     background-color: #2674B9;
     width: 230px;
@@ -148,26 +425,32 @@ input[type=text]::-ms-clear {
     margin-top: 30px;
     padding: 10px;
 }
+
 .docubot_send_message.docubot_letsgo:hover {
     color: #EEEEEE;
     background-color: #59A7EC;
 }
+
 .docubot_send_message.docubot_sendicon {
     display: none;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
+
 .docubot_send_message.docubot_sendicon svg {
     width: 100%;
     height: 100%;
 }
+
 .docubot_send_message.docubot_sendicon svg path {
     fill: #2674B9;
     transition: fill 0.3s ease-in-out;
 }
+
 .docubot_send_message.docubot_sendicon:hover svg path {
     fill: #59A7EC;
 }
+
 .docubot_container ul.docubot_message_display {
     width: 90%;
     margin: auto;
@@ -176,6 +459,7 @@ input[type=text]::-ms-clear {
     padding-bottom: 16px;
     transition: padding 0.5s ease-in-out;
 }
+
 .docubot_container ul.docubot_message_display li {
     width: 90%;
     display: block;
@@ -186,9 +470,11 @@ input[type=text]::-ms-clear {
     position: relative;
     list-style: none;
 }
+
 .docubot_from_img_container {
     position: absolute;
 }
+
 .docubot_from_img {
     width: 60px;
     height: 60px;
@@ -196,19 +482,24 @@ input[type=text]::-ms-clear {
     background-size: cover;
     border-radius: 50%;
 }
+
 .docubot_from_message {
     margin-left: 70px;
     min-height: 60px;
 }
+
 .docubot_from_user {
     border-top: 1px solid #cccccc
 }
+
 .docubot_from_docubot {
     border-top: 1px solid #cccccc
 }
+
 .docubot_container.docubot_conversation_started .docubot_message_div {
-    width:90%;
+    width: 90%;
 }
+
 .docubot_container.docubot_conversation_started .docubot_send_message.docubot_sendicon {
     border: none;
     background: none;
@@ -222,34 +513,44 @@ input[type=text]::-ms-clear {
     opacity: 1;
     transform: translateY(-50%);
 }
+
 .docubot_container.docubot_conversation_started .docubot_send_message.docubot_letsgo {
     display: none;
 }
+
 .docubot_container.docubot_conversation_started .docubot_getstarted_text {
     opacity: 0;
     font-size: 0 !important;
 }
+
 .docubot_container.docubot_conversation_started ul.docubot_message_display {
     padding-top: 16px;
 }
+
 .docubot_container.docubot_conversation_started .docubot_logo svg path {
     fill: #2674B9;
 }
+
 .docubot_container.docubot_conversation_started input[type="text"].docubot_message {
     padding-right: 50px;
 }
+
 .docubot_container.docubot_use_files .docubot_message_container {
-  display: none;
+    display: none;
 }
+
 .docubot_container.docubot_use_files.docubot_conversation_started .docubot_message_container {
-  display: block;
+    display: block;
 }
+
 .docubot_container.docubot_use_files.docubot_conversation_started .docubot_document_buttons {
-  display: none;
+    display: none;
 }
+
 .docubot_document_buttons {
-  text-align: center;
+    text-align: center;
 }
+
 .docubot_document_button {
     background-color: #2674B9;
     border: 0px;
@@ -260,20 +561,23 @@ input[type=text]::-ms-clear {
     margin: auto;
     padding: 10px;
 }
+
 .docubot_document_button:hover {
-  color: #EEEEEE;
-  background-color: #59A7EC;
+    color: #EEEEEE;
+    background-color: #59A7EC;
 }
 
 .docubot_loading {
     padding: 16px;
 }
+
 .onelaw-loader {
     width: 40px;
     height: 40px;
     position: relative;
     margin: auto;
 }
+
 .onelaw-loader .bounce1,
 .onelaw-loader .bounce2 {
     width: 100%;
@@ -287,25 +591,34 @@ input[type=text]::-ms-clear {
     -webkit-animation: onelaw-loader 2s infinite ease-in-out;
     animation: onelaw-loader 2s infinite ease-in-out;
 }
+
 .onelaw-loader .bounce2 {
     -webkit-animation-delay: -1s;
     animation-delay: -1s;
 }
+
 @-webkit-keyframes onelaw-loader {
-    0%, 100% {
+
+    0%,
+    100% {
         -webkit-transform: scale(0);
         transform: scale(0);
     }
+
     50% {
         -webkit-transform: scale(1);
         transform: scale(1);
     }
 }
+
 @keyframes onelaw-loader {
-    0%, 100% {
+
+    0%,
+    100% {
         -webkit-transform: scale(0);
         transform: scale(0);
     }
+
     50% {
         -webkit-transform: scale(1);
         transform: scale(1);
@@ -326,177 +639,698 @@ input[type=text]::-ms-clear {
     background-size: 2093px 2058px;
 }
 
-.sprite-Docubot_Dance_0 {background-position: 0 0;}
-.sprite-Docubot_Dance_1 {background-position: -161px 0;}
-.sprite-Docubot_Dance_2 {background-position: -322px 0;}
-.sprite-Docubot_Dance_3 {background-position: -483px 0;}
-.sprite-Docubot_Dance_4 {background-position: -644px 0;}
-.sprite-Docubot_Dance_5 {background-position: -805px 0;}
-.sprite-Docubot_Dance_6 {background-position: -966px 0;}
-.sprite-Docubot_Dance_7 {background-position: -1127px 0;}
-.sprite-Docubot_Dance_8 {background-position: -1288px 0;}
-.sprite-Docubot_Dance_9 {background-position: -1449px 0;}
-.sprite-Docubot_Dance_10 {background-position: -1610px 0;}
-.sprite-Docubot_Dance_100 {background-position: -1771px 0;}
-.sprite-Docubot_Dance_101 {background-position: 0 -147px;}
-.sprite-Docubot_Dance_102 {background-position: -161px -147px;}
-.sprite-Docubot_Dance_103 {background-position: -322px -147px;}
-.sprite-Docubot_Dance_104 {background-position: -483px -147px;}
-.sprite-Docubot_Dance_105 {background-position: -644px -147px;}
-.sprite-Docubot_Dance_106 {background-position: -805px -147px;}
-.sprite-Docubot_Dance_107 {background-position: -966px -147px;}
-.sprite-Docubot_Dance_108 {background-position: -1127px -147px;}
-.sprite-Docubot_Dance_109 {background-position: -1288px -147px;}
-.sprite-Docubot_Dance_11 {background-position: -1449px -147px;}
-.sprite-Docubot_Dance_110 {background-position: -1610px -147px;}
-.sprite-Docubot_Dance_111 {background-position: -1771px -147px;}
-.sprite-Docubot_Dance_112 {background-position: 0 -294px;}
-.sprite-Docubot_Dance_113 {background-position: -161px -294px;}
-.sprite-Docubot_Dance_114 {background-position: -322px -294px;}
-.sprite-Docubot_Dance_115 {background-position: -483px -294px;}
-.sprite-Docubot_Dance_116 {background-position: -644px -294px;}
-.sprite-Docubot_Dance_117 {background-position: -805px -294px;}
-.sprite-Docubot_Dance_118 {background-position: -966px -294px;}
-.sprite-Docubot_Dance_119 {background-position: -1127px -294px;}
-.sprite-Docubot_Dance_12 {background-position: -1288px -294px;}
-.sprite-Docubot_Dance_120 {background-position: -1449px -294px;}
-.sprite-Docubot_Dance_121 {background-position: -1610px -294px;}
-.sprite-Docubot_Dance_122 {background-position: -1771px -294px;}
-.sprite-Docubot_Dance_123 {background-position: 0 -441px;}
-.sprite-Docubot_Dance_124 {background-position: -161px -441px;}
-.sprite-Docubot_Dance_125 {background-position: -322px -441px;}
-.sprite-Docubot_Dance_126 {background-position: -483px -441px;}
-.sprite-Docubot_Dance_127 {background-position: -644px -441px;}
-.sprite-Docubot_Dance_128 {background-position: -805px -441px;}
-.sprite-Docubot_Dance_129 {background-position: -966px -441px;}
-.sprite-Docubot_Dance_13 {background-position: -1127px -441px;}
-.sprite-Docubot_Dance_130 {background-position: -1288px -441px;}
-.sprite-Docubot_Dance_131 {background-position: -1449px -441px;}
-.sprite-Docubot_Dance_132 {background-position: -1610px -441px;}
-.sprite-Docubot_Dance_133 {background-position: -1771px -441px;}
-.sprite-Docubot_Dance_134 {background-position: 0 -588px;}
-.sprite-Docubot_Dance_135 {background-position: -161px -588px;}
-.sprite-Docubot_Dance_136 {background-position: -322px -588px;}
-.sprite-Docubot_Dance_137 {background-position: -483px -588px;}
-.sprite-Docubot_Dance_138 {background-position: -644px -588px;}
-.sprite-Docubot_Dance_139 {background-position: -805px -588px;}
-.sprite-Docubot_Dance_14 {background-position: -966px -588px;}
-.sprite-Docubot_Dance_140 {background-position: -1127px -588px;}
-.sprite-Docubot_Dance_141 {background-position: -1288px -588px;}
-.sprite-Docubot_Dance_142 {background-position: -1449px -588px;}
-.sprite-Docubot_Dance_143 {background-position: -1610px -588px;}
-.sprite-Docubot_Dance_144 {background-position: -1771px -588px;}
-.sprite-Docubot_Dance_145 {background-position: 0 -735px;}
-.sprite-Docubot_Dance_146 {background-position: -161px -735px;}
-.sprite-Docubot_Dance_147 {background-position: -322px -735px;}
-.sprite-Docubot_Dance_148 {background-position: -483px -735px;}
-.sprite-Docubot_Dance_149 {background-position: -644px -735px;}
-.sprite-Docubot_Dance_15 {background-position: -805px -735px;}
-.sprite-Docubot_Dance_150 {background-position: -966px -735px;}
-.sprite-Docubot_Dance_151 {background-position: -1127px -735px;}
-.sprite-Docubot_Dance_152 {background-position: -1288px -735px;}
-.sprite-Docubot_Dance_153 {background-position: -1449px -735px;}
-.sprite-Docubot_Dance_154 {background-position: -1610px -735px;}
-.sprite-Docubot_Dance_155 {background-position: -1771px -735px;}
-.sprite-Docubot_Dance_156 {background-position: 0 -882px;}
-.sprite-Docubot_Dance_157 {background-position: -161px -882px;}
-.sprite-Docubot_Dance_158 {background-position: -322px -882px;}
-.sprite-Docubot_Dance_159 {background-position: -483px -882px;}
-.sprite-Docubot_Dance_16 {background-position: -644px -882px;}
-.sprite-Docubot_Dance_160 {background-position: -805px -882px;}
-.sprite-Docubot_Dance_161 {background-position: -966px -882px;}
-.sprite-Docubot_Dance_162 {background-position: -1127px -882px;}
-.sprite-Docubot_Dance_163 {background-position: -1288px -882px;}
-.sprite-Docubot_Dance_164 {background-position: -1449px -882px;}
-.sprite-Docubot_Dance_165 {background-position: -1610px -882px;}
-.sprite-Docubot_Dance_166 {background-position: -1771px -882px;}
-.sprite-Docubot_Dance_167 {background-position: 0 -1029px;}
-.sprite-Docubot_Dance_168 {background-position: -161px -1029px;}
-.sprite-Docubot_Dance_169 {background-position: -322px -1029px;}
-.sprite-Docubot_Dance_17 {background-position: -483px -1029px;}
-.sprite-Docubot_Dance_170 {background-position: -644px -1029px;}
-.sprite-Docubot_Dance_171 {background-position: -805px -1029px;}
-.sprite-Docubot_Dance_172 {background-position: -966px -1029px;}
-.sprite-Docubot_Dance_173 {background-position: -1127px -1029px;}
-.sprite-Docubot_Dance_18 {background-position: -1288px -1029px;}
-.sprite-Docubot_Dance_19 {background-position: -1449px -1029px;}
-.sprite-Docubot_Dance_20 {background-position: -1610px -1029px;}
-.sprite-Docubot_Dance_21 {background-position: -1771px -1029px;}
-.sprite-Docubot_Dance_22 {background-position: 0 -1176px;}
-.sprite-Docubot_Dance_23 {background-position: -161px -1176px;}
-.sprite-Docubot_Dance_24 {background-position: -322px -1176px;}
-.sprite-Docubot_Dance_25 {background-position: -483px -1176px;}
-.sprite-Docubot_Dance_26 {background-position: -644px -1176px;}
-.sprite-Docubot_Dance_27 {background-position: -805px -1176px;}
-.sprite-Docubot_Dance_28 {background-position: -966px -1176px;}
-.sprite-Docubot_Dance_29 {background-position: -1127px -1176px;}
-.sprite-Docubot_Dance_30 {background-position: -1288px -1176px;}
-.sprite-Docubot_Dance_31 {background-position: -1449px -1176px;}
-.sprite-Docubot_Dance_32 {background-position: -1610px -1176px;}
-.sprite-Docubot_Dance_33 {background-position: -1771px -1176px;}
-.sprite-Docubot_Dance_34 {background-position: 0 -1323px;}
-.sprite-Docubot_Dance_35 {background-position: -161px -1323px;}
-.sprite-Docubot_Dance_36 {background-position: -322px -1323px;}
-.sprite-Docubot_Dance_37 {background-position: -483px -1323px;}
-.sprite-Docubot_Dance_38 {background-position: -644px -1323px;}
-.sprite-Docubot_Dance_39 {background-position: -805px -1323px;}
-.sprite-Docubot_Dance_40 {background-position: -966px -1323px;}
-.sprite-Docubot_Dance_41 {background-position: -1127px -1323px;}
-.sprite-Docubot_Dance_42 {background-position: -1288px -1323px;}
-.sprite-Docubot_Dance_43 {background-position: -1449px -1323px;}
-.sprite-Docubot_Dance_44 {background-position: -1610px -1323px;}
-.sprite-Docubot_Dance_45 {background-position: -1771px -1323px;}
-.sprite-Docubot_Dance_46 {background-position: 0 -1470px;}
-.sprite-Docubot_Dance_47 {background-position: -161px -1470px;}
-.sprite-Docubot_Dance_48 {background-position: -322px -1470px;}
-.sprite-Docubot_Dance_49 {background-position: -483px -1470px;}
-.sprite-Docubot_Dance_50 {background-position: -644px -1470px;}
-.sprite-Docubot_Dance_51 {background-position: -805px -1470px;}
-.sprite-Docubot_Dance_52 {background-position: -966px -1470px;}
-.sprite-Docubot_Dance_53 {background-position: -1127px -1470px;}
-.sprite-Docubot_Dance_54 {background-position: -1288px -1470px;}
-.sprite-Docubot_Dance_55 {background-position: -1449px -1470px;}
-.sprite-Docubot_Dance_56 {background-position: -1610px -1470px;}
-.sprite-Docubot_Dance_57 {background-position: -1771px -1470px;}
-.sprite-Docubot_Dance_58 {background-position: 0 -1617px;}
-.sprite-Docubot_Dance_59 {background-position: -161px -1617px;}
-.sprite-Docubot_Dance_60 {background-position: -322px -1617px;}
-.sprite-Docubot_Dance_61 {background-position: -483px -1617px;}
-.sprite-Docubot_Dance_62 {background-position: -644px -1617px;}
-.sprite-Docubot_Dance_63 {background-position: -805px -1617px;}
-.sprite-Docubot_Dance_64 {background-position: -966px -1617px;}
-.sprite-Docubot_Dance_65 {background-position: -1127px -1617px;}
-.sprite-Docubot_Dance_66 {background-position: -1288px -1617px;}
-.sprite-Docubot_Dance_67 {background-position: -1449px -1617px;}
-.sprite-Docubot_Dance_68 {background-position: -1610px -1617px;}
-.sprite-Docubot_Dance_69 {background-position: -1771px -1617px;}
-.sprite-Docubot_Dance_70 {background-position: 0 -1764px;}
-.sprite-Docubot_Dance_71 {background-position: -161px -1764px;}
-.sprite-Docubot_Dance_72 {background-position: -322px -1764px;}
-.sprite-Docubot_Dance_73 {background-position: -483px -1764px;}
-.sprite-Docubot_Dance_74 {background-position: -644px -1764px;}
-.sprite-Docubot_Dance_75 {background-position: -805px -1764px;}
-.sprite-Docubot_Dance_76 {background-position: -966px -1764px;}
-.sprite-Docubot_Dance_77 {background-position: -1127px -1764px;}
-.sprite-Docubot_Dance_78 {background-position: -1288px -1764px;}
-.sprite-Docubot_Dance_79 {background-position: -1449px -1764px;}
-.sprite-Docubot_Dance_80 {background-position: -1610px -1764px;}
-.sprite-Docubot_Dance_81 {background-position: -1771px -1764px;}
-.sprite-Docubot_Dance_82 {background-position: -1932px 0;}
-.sprite-Docubot_Dance_83 {background-position: -1932px -147px;}
-.sprite-Docubot_Dance_84 {background-position: -1932px -294px;}
-.sprite-Docubot_Dance_85 {background-position: -1932px -441px;}
-.sprite-Docubot_Dance_86 {background-position: -1932px -588px;}
-.sprite-Docubot_Dance_87 {background-position: -1932px -735px;}
-.sprite-Docubot_Dance_88 {background-position: -1932px -882px;}
-.sprite-Docubot_Dance_89 {background-position: -1932px -1029px;}
-.sprite-Docubot_Dance_90 {background-position: -1932px -1176px;}
-.sprite-Docubot_Dance_91 {background-position: -1932px -1323px;}
-.sprite-Docubot_Dance_92 {background-position: -1932px -1470px;}
-.sprite-Docubot_Dance_93 {background-position: -1932px -1617px;}
-.sprite-Docubot_Dance_94 {background-position: -1932px -1764px;}
-.sprite-Docubot_Dance_95 {background-position: 0 -1911px;}
-.sprite-Docubot_Dance_96 {background-position: -161px -1911px;}
-.sprite-Docubot_Dance_97 {background-position: -322px -1911px;}
-.sprite-Docubot_Dance_98 {background-position: -483px -1911px;}
-.sprite-Docubot_Dance_99 {background-position: -644px -1911px;}
+.sprite-Docubot_Dance_0 {
+    background-position: 0 0;
+}
+
+.sprite-Docubot_Dance_1 {
+    background-position: -161px 0;
+}
+
+.sprite-Docubot_Dance_2 {
+    background-position: -322px 0;
+}
+
+.sprite-Docubot_Dance_3 {
+    background-position: -483px 0;
+}
+
+.sprite-Docubot_Dance_4 {
+    background-position: -644px 0;
+}
+
+.sprite-Docubot_Dance_5 {
+    background-position: -805px 0;
+}
+
+.sprite-Docubot_Dance_6 {
+    background-position: -966px 0;
+}
+
+.sprite-Docubot_Dance_7 {
+    background-position: -1127px 0;
+}
+
+.sprite-Docubot_Dance_8 {
+    background-position: -1288px 0;
+}
+
+.sprite-Docubot_Dance_9 {
+    background-position: -1449px 0;
+}
+
+.sprite-Docubot_Dance_10 {
+    background-position: -1610px 0;
+}
+
+.sprite-Docubot_Dance_100 {
+    background-position: -1771px 0;
+}
+
+.sprite-Docubot_Dance_101 {
+    background-position: 0 -147px;
+}
+
+.sprite-Docubot_Dance_102 {
+    background-position: -161px -147px;
+}
+
+.sprite-Docubot_Dance_103 {
+    background-position: -322px -147px;
+}
+
+.sprite-Docubot_Dance_104 {
+    background-position: -483px -147px;
+}
+
+.sprite-Docubot_Dance_105 {
+    background-position: -644px -147px;
+}
+
+.sprite-Docubot_Dance_106 {
+    background-position: -805px -147px;
+}
+
+.sprite-Docubot_Dance_107 {
+    background-position: -966px -147px;
+}
+
+.sprite-Docubot_Dance_108 {
+    background-position: -1127px -147px;
+}
+
+.sprite-Docubot_Dance_109 {
+    background-position: -1288px -147px;
+}
+
+.sprite-Docubot_Dance_11 {
+    background-position: -1449px -147px;
+}
+
+.sprite-Docubot_Dance_110 {
+    background-position: -1610px -147px;
+}
+
+.sprite-Docubot_Dance_111 {
+    background-position: -1771px -147px;
+}
+
+.sprite-Docubot_Dance_112 {
+    background-position: 0 -294px;
+}
+
+.sprite-Docubot_Dance_113 {
+    background-position: -161px -294px;
+}
+
+.sprite-Docubot_Dance_114 {
+    background-position: -322px -294px;
+}
+
+.sprite-Docubot_Dance_115 {
+    background-position: -483px -294px;
+}
+
+.sprite-Docubot_Dance_116 {
+    background-position: -644px -294px;
+}
+
+.sprite-Docubot_Dance_117 {
+    background-position: -805px -294px;
+}
+
+.sprite-Docubot_Dance_118 {
+    background-position: -966px -294px;
+}
+
+.sprite-Docubot_Dance_119 {
+    background-position: -1127px -294px;
+}
+
+.sprite-Docubot_Dance_12 {
+    background-position: -1288px -294px;
+}
+
+.sprite-Docubot_Dance_120 {
+    background-position: -1449px -294px;
+}
+
+.sprite-Docubot_Dance_121 {
+    background-position: -1610px -294px;
+}
+
+.sprite-Docubot_Dance_122 {
+    background-position: -1771px -294px;
+}
+
+.sprite-Docubot_Dance_123 {
+    background-position: 0 -441px;
+}
+
+.sprite-Docubot_Dance_124 {
+    background-position: -161px -441px;
+}
+
+.sprite-Docubot_Dance_125 {
+    background-position: -322px -441px;
+}
+
+.sprite-Docubot_Dance_126 {
+    background-position: -483px -441px;
+}
+
+.sprite-Docubot_Dance_127 {
+    background-position: -644px -441px;
+}
+
+.sprite-Docubot_Dance_128 {
+    background-position: -805px -441px;
+}
+
+.sprite-Docubot_Dance_129 {
+    background-position: -966px -441px;
+}
+
+.sprite-Docubot_Dance_13 {
+    background-position: -1127px -441px;
+}
+
+.sprite-Docubot_Dance_130 {
+    background-position: -1288px -441px;
+}
+
+.sprite-Docubot_Dance_131 {
+    background-position: -1449px -441px;
+}
+
+.sprite-Docubot_Dance_132 {
+    background-position: -1610px -441px;
+}
+
+.sprite-Docubot_Dance_133 {
+    background-position: -1771px -441px;
+}
+
+.sprite-Docubot_Dance_134 {
+    background-position: 0 -588px;
+}
+
+.sprite-Docubot_Dance_135 {
+    background-position: -161px -588px;
+}
+
+.sprite-Docubot_Dance_136 {
+    background-position: -322px -588px;
+}
+
+.sprite-Docubot_Dance_137 {
+    background-position: -483px -588px;
+}
+
+.sprite-Docubot_Dance_138 {
+    background-position: -644px -588px;
+}
+
+.sprite-Docubot_Dance_139 {
+    background-position: -805px -588px;
+}
+
+.sprite-Docubot_Dance_14 {
+    background-position: -966px -588px;
+}
+
+.sprite-Docubot_Dance_140 {
+    background-position: -1127px -588px;
+}
+
+.sprite-Docubot_Dance_141 {
+    background-position: -1288px -588px;
+}
+
+.sprite-Docubot_Dance_142 {
+    background-position: -1449px -588px;
+}
+
+.sprite-Docubot_Dance_143 {
+    background-position: -1610px -588px;
+}
+
+.sprite-Docubot_Dance_144 {
+    background-position: -1771px -588px;
+}
+
+.sprite-Docubot_Dance_145 {
+    background-position: 0 -735px;
+}
+
+.sprite-Docubot_Dance_146 {
+    background-position: -161px -735px;
+}
+
+.sprite-Docubot_Dance_147 {
+    background-position: -322px -735px;
+}
+
+.sprite-Docubot_Dance_148 {
+    background-position: -483px -735px;
+}
+
+.sprite-Docubot_Dance_149 {
+    background-position: -644px -735px;
+}
+
+.sprite-Docubot_Dance_15 {
+    background-position: -805px -735px;
+}
+
+.sprite-Docubot_Dance_150 {
+    background-position: -966px -735px;
+}
+
+.sprite-Docubot_Dance_151 {
+    background-position: -1127px -735px;
+}
+
+.sprite-Docubot_Dance_152 {
+    background-position: -1288px -735px;
+}
+
+.sprite-Docubot_Dance_153 {
+    background-position: -1449px -735px;
+}
+
+.sprite-Docubot_Dance_154 {
+    background-position: -1610px -735px;
+}
+
+.sprite-Docubot_Dance_155 {
+    background-position: -1771px -735px;
+}
+
+.sprite-Docubot_Dance_156 {
+    background-position: 0 -882px;
+}
+
+.sprite-Docubot_Dance_157 {
+    background-position: -161px -882px;
+}
+
+.sprite-Docubot_Dance_158 {
+    background-position: -322px -882px;
+}
+
+.sprite-Docubot_Dance_159 {
+    background-position: -483px -882px;
+}
+
+.sprite-Docubot_Dance_16 {
+    background-position: -644px -882px;
+}
+
+.sprite-Docubot_Dance_160 {
+    background-position: -805px -882px;
+}
+
+.sprite-Docubot_Dance_161 {
+    background-position: -966px -882px;
+}
+
+.sprite-Docubot_Dance_162 {
+    background-position: -1127px -882px;
+}
+
+.sprite-Docubot_Dance_163 {
+    background-position: -1288px -882px;
+}
+
+.sprite-Docubot_Dance_164 {
+    background-position: -1449px -882px;
+}
+
+.sprite-Docubot_Dance_165 {
+    background-position: -1610px -882px;
+}
+
+.sprite-Docubot_Dance_166 {
+    background-position: -1771px -882px;
+}
+
+.sprite-Docubot_Dance_167 {
+    background-position: 0 -1029px;
+}
+
+.sprite-Docubot_Dance_168 {
+    background-position: -161px -1029px;
+}
+
+.sprite-Docubot_Dance_169 {
+    background-position: -322px -1029px;
+}
+
+.sprite-Docubot_Dance_17 {
+    background-position: -483px -1029px;
+}
+
+.sprite-Docubot_Dance_170 {
+    background-position: -644px -1029px;
+}
+
+.sprite-Docubot_Dance_171 {
+    background-position: -805px -1029px;
+}
+
+.sprite-Docubot_Dance_172 {
+    background-position: -966px -1029px;
+}
+
+.sprite-Docubot_Dance_173 {
+    background-position: -1127px -1029px;
+}
+
+.sprite-Docubot_Dance_18 {
+    background-position: -1288px -1029px;
+}
+
+.sprite-Docubot_Dance_19 {
+    background-position: -1449px -1029px;
+}
+
+.sprite-Docubot_Dance_20 {
+    background-position: -1610px -1029px;
+}
+
+.sprite-Docubot_Dance_21 {
+    background-position: -1771px -1029px;
+}
+
+.sprite-Docubot_Dance_22 {
+    background-position: 0 -1176px;
+}
+
+.sprite-Docubot_Dance_23 {
+    background-position: -161px -1176px;
+}
+
+.sprite-Docubot_Dance_24 {
+    background-position: -322px -1176px;
+}
+
+.sprite-Docubot_Dance_25 {
+    background-position: -483px -1176px;
+}
+
+.sprite-Docubot_Dance_26 {
+    background-position: -644px -1176px;
+}
+
+.sprite-Docubot_Dance_27 {
+    background-position: -805px -1176px;
+}
+
+.sprite-Docubot_Dance_28 {
+    background-position: -966px -1176px;
+}
+
+.sprite-Docubot_Dance_29 {
+    background-position: -1127px -1176px;
+}
+
+.sprite-Docubot_Dance_30 {
+    background-position: -1288px -1176px;
+}
+
+.sprite-Docubot_Dance_31 {
+    background-position: -1449px -1176px;
+}
+
+.sprite-Docubot_Dance_32 {
+    background-position: -1610px -1176px;
+}
+
+.sprite-Docubot_Dance_33 {
+    background-position: -1771px -1176px;
+}
+
+.sprite-Docubot_Dance_34 {
+    background-position: 0 -1323px;
+}
+
+.sprite-Docubot_Dance_35 {
+    background-position: -161px -1323px;
+}
+
+.sprite-Docubot_Dance_36 {
+    background-position: -322px -1323px;
+}
+
+.sprite-Docubot_Dance_37 {
+    background-position: -483px -1323px;
+}
+
+.sprite-Docubot_Dance_38 {
+    background-position: -644px -1323px;
+}
+
+.sprite-Docubot_Dance_39 {
+    background-position: -805px -1323px;
+}
+
+.sprite-Docubot_Dance_40 {
+    background-position: -966px -1323px;
+}
+
+.sprite-Docubot_Dance_41 {
+    background-position: -1127px -1323px;
+}
+
+.sprite-Docubot_Dance_42 {
+    background-position: -1288px -1323px;
+}
+
+.sprite-Docubot_Dance_43 {
+    background-position: -1449px -1323px;
+}
+
+.sprite-Docubot_Dance_44 {
+    background-position: -1610px -1323px;
+}
+
+.sprite-Docubot_Dance_45 {
+    background-position: -1771px -1323px;
+}
+
+.sprite-Docubot_Dance_46 {
+    background-position: 0 -1470px;
+}
+
+.sprite-Docubot_Dance_47 {
+    background-position: -161px -1470px;
+}
+
+.sprite-Docubot_Dance_48 {
+    background-position: -322px -1470px;
+}
+
+.sprite-Docubot_Dance_49 {
+    background-position: -483px -1470px;
+}
+
+.sprite-Docubot_Dance_50 {
+    background-position: -644px -1470px;
+}
+
+.sprite-Docubot_Dance_51 {
+    background-position: -805px -1470px;
+}
+
+.sprite-Docubot_Dance_52 {
+    background-position: -966px -1470px;
+}
+
+.sprite-Docubot_Dance_53 {
+    background-position: -1127px -1470px;
+}
+
+.sprite-Docubot_Dance_54 {
+    background-position: -1288px -1470px;
+}
+
+.sprite-Docubot_Dance_55 {
+    background-position: -1449px -1470px;
+}
+
+.sprite-Docubot_Dance_56 {
+    background-position: -1610px -1470px;
+}
+
+.sprite-Docubot_Dance_57 {
+    background-position: -1771px -1470px;
+}
+
+.sprite-Docubot_Dance_58 {
+    background-position: 0 -1617px;
+}
+
+.sprite-Docubot_Dance_59 {
+    background-position: -161px -1617px;
+}
+
+.sprite-Docubot_Dance_60 {
+    background-position: -322px -1617px;
+}
+
+.sprite-Docubot_Dance_61 {
+    background-position: -483px -1617px;
+}
+
+.sprite-Docubot_Dance_62 {
+    background-position: -644px -1617px;
+}
+
+.sprite-Docubot_Dance_63 {
+    background-position: -805px -1617px;
+}
+
+.sprite-Docubot_Dance_64 {
+    background-position: -966px -1617px;
+}
+
+.sprite-Docubot_Dance_65 {
+    background-position: -1127px -1617px;
+}
+
+.sprite-Docubot_Dance_66 {
+    background-position: -1288px -1617px;
+}
+
+.sprite-Docubot_Dance_67 {
+    background-position: -1449px -1617px;
+}
+
+.sprite-Docubot_Dance_68 {
+    background-position: -1610px -1617px;
+}
+
+.sprite-Docubot_Dance_69 {
+    background-position: -1771px -1617px;
+}
+
+.sprite-Docubot_Dance_70 {
+    background-position: 0 -1764px;
+}
+
+.sprite-Docubot_Dance_71 {
+    background-position: -161px -1764px;
+}
+
+.sprite-Docubot_Dance_72 {
+    background-position: -322px -1764px;
+}
+
+.sprite-Docubot_Dance_73 {
+    background-position: -483px -1764px;
+}
+
+.sprite-Docubot_Dance_74 {
+    background-position: -644px -1764px;
+}
+
+.sprite-Docubot_Dance_75 {
+    background-position: -805px -1764px;
+}
+
+.sprite-Docubot_Dance_76 {
+    background-position: -966px -1764px;
+}
+
+.sprite-Docubot_Dance_77 {
+    background-position: -1127px -1764px;
+}
+
+.sprite-Docubot_Dance_78 {
+    background-position: -1288px -1764px;
+}
+
+.sprite-Docubot_Dance_79 {
+    background-position: -1449px -1764px;
+}
+
+.sprite-Docubot_Dance_80 {
+    background-position: -1610px -1764px;
+}
+
+.sprite-Docubot_Dance_81 {
+    background-position: -1771px -1764px;
+}
+
+.sprite-Docubot_Dance_82 {
+    background-position: -1932px 0;
+}
+
+.sprite-Docubot_Dance_83 {
+    background-position: -1932px -147px;
+}
+
+.sprite-Docubot_Dance_84 {
+    background-position: -1932px -294px;
+}
+
+.sprite-Docubot_Dance_85 {
+    background-position: -1932px -441px;
+}
+
+.sprite-Docubot_Dance_86 {
+    background-position: -1932px -588px;
+}
+
+.sprite-Docubot_Dance_87 {
+    background-position: -1932px -735px;
+}
+
+.sprite-Docubot_Dance_88 {
+    background-position: -1932px -882px;
+}
+
+.sprite-Docubot_Dance_89 {
+    background-position: -1932px -1029px;
+}
+
+.sprite-Docubot_Dance_90 {
+    background-position: -1932px -1176px;
+}
+
+.sprite-Docubot_Dance_91 {
+    background-position: -1932px -1323px;
+}
+
+.sprite-Docubot_Dance_92 {
+    background-position: -1932px -1470px;
+}
+
+.sprite-Docubot_Dance_93 {
+    background-position: -1932px -1617px;
+}
+
+.sprite-Docubot_Dance_94 {
+    background-position: -1932px -1764px;
+}
+
+.sprite-Docubot_Dance_95 {
+    background-position: 0 -1911px;
+}
+
+.sprite-Docubot_Dance_96 {
+    background-position: -161px -1911px;
+}
+
+.sprite-Docubot_Dance_97 {
+    background-position: -322px -1911px;
+}
+
+.sprite-Docubot_Dance_98 {
+    background-position: -483px -1911px;
+}
+
+.sprite-Docubot_Dance_99 {
+    background-position: -644px -1911px;
+}

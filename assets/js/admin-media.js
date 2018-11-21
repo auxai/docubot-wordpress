@@ -32,6 +32,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       $( '#docubot-logo-preview' ).attr( 'src', '//via.placeholder.com/100x100?text=Your+Logo' );
     });
 
+    $('#docubot_reset_color').on('click', function(e) {
+      e.preventDefault();
+      $('[name="docubot_primary_color"]').val('#1F5EAB');
+      $('[name="docubot_primary_color_contrast"]').val('#FFFFFF');
+      $('[name="docubot_bg"]').val('#FFFFFF');
+      $('[name="docubot_secondary_color"]').val('#6A6A6A');
+      $('[name="docubot_secondary_color_contrast"]').val('#FFFFFF');
+    });
+
     function addMedia( event ) {
       event.preventDefault();
       // If the media frame already exists, reopen it.

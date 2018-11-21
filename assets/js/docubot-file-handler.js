@@ -16,6 +16,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 ;(function(window, $, undefined) {
 $( function() {
+  $('#docubot_use_popup').on('change', function() {
+    if ( $(this).is(':checked') ) {
+      $('.docubot_use_side').show();
+    } else {
+      $('.docubot_use_side').hide();
+    }
+  })
   $('.delete-doc-button').on('click', function() {
     var docNumber = $(this).data('docnumber');
     $('#doc_name_' + docNumber).text('');

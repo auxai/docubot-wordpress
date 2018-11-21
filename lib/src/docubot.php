@@ -399,7 +399,7 @@ class Docubot {
       curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
       $result = curl_exec( $ch );
       if ( $result === false ) {
-          echo "here 1";
+          
           $err = new DocubotError();
           $err->errors = [ 'errors' => curl_error( $ch ) ];
           curl_close( $ch );
@@ -411,8 +411,6 @@ class Docubot {
       $result = json_decode( $result, true );
       if ( $info['http_code'] < 200 || $info['http_code'] > 299 ) {
 
-          echo "here 2";
-          var_dump($info);
           $err = new DocubotError();
           $err->errors = [ 'errors' => $result['errors'] ];
           return $err;

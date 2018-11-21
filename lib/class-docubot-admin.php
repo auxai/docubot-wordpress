@@ -69,6 +69,7 @@ class DocubotAdmin {
           do_settings_sections( 'docubot-options' );
           $apiKey = esc_attr( get_option('docubot_api_key') );
           $apiSecret = esc_attr( get_option('docubot_api_secret') );
+          $useDocubotPopup = get_option('docubot_use_popup');
           $useDocubotFiles = get_option('docubot_use_files'); ?>
           <table class="form-table">
             <tr valign="top">
@@ -91,6 +92,26 @@ class DocubotAdmin {
               <tr valign="top">
                 <th scope="row">Docubot Document ID<p>NOTE: If you are using Docubot files this field will be ignored.</p></th>
                 <td><input type="text" name="docubot_document_id" value="<?php echo esc_attr( get_option('docubot_document_id') ); ?>" /></td>
+              </tr>
+
+              <tr valign="top">
+                <th scope="row">Use Docubot Popup Window</th>
+                <td><input type="checkbox" name="docubot_use_popup" id="docubot_use_popup" value="1" <?php checked( $useDocubotPopup, '1' ); ?>/></td>
+              </tr>
+
+              <tr valign="top" class="docubot_use_side" <?php if ( $useDocubotPopup != '1' ) { ?>style="display: none;"<?php } ?>>
+                <th scope="row">Side</th>
+                <td>
+                  <select name="docubot_use_l_r" id="docubot_use_side">
+                  <?php if ( get_option( 'docubot_use_l_r' ) == "left" ) { ?>
+                    <option value="right">Right</option>
+                    <option value="left" selected="selected">Left</option>
+                  <?php } else { ?>
+                    <option value="right" selected="selected">Right</option>
+                    <option value="left">Left</option>
+                  <?php } ?>
+                  </select>
+                </td>
               </tr>
 
               <tr valign="top">
@@ -188,30 +209,69 @@ class DocubotAdmin {
               </tr>
 
               <!-- Colors -->
+              <?php if ( get_option( 'docubot_primary_color' ) !== false ) { ?>
+                <tr valign="top">
+                  <th scope="row">Primary Color</th>
+                  <td><input type="color" name="docubot_primary_color" value="<?php echo esc_attr( get_option('docubot_primary_color') ); ?>" /></td>
+                </tr>
+              <?php } else { ?>
+                <tr valign="top">
+                  <th scope="row">Primary Color</th>
+                  <td><input type="color" name="docubot_primary_color" value="#1F5EAB" /></td>
+                </tr>
+              <?php } ?>
+
+              <?php if ( get_option( 'docubot_primary_color_contrast' ) !== false ) { ?>
+                <tr valign="top">
+                  <th scope="row">Primary Color Contrast</th>
+                  <td><input type="color" name="docubot_primary_color_contrast" value="<?php echo esc_attr( get_option('docubot_primary_color_contrast') ); ?>" /></td>
+                </tr>
+              <?php } else { ?>
+                <tr valign="top">
+                  <th scope="row">Primary Color Contrast</th>
+                  <td><input type="color" name="docubot_primary_color_contrast" value="#FFFFFF" /></td>
+                </tr>
+              <?php } ?>
+
+              <?php if ( get_option( 'docubot_bg' ) !== false ) { ?>
+                <tr valign="top">
+                  <th scope="row">Background Color</th>
+                  <td><input type="color" name="docubot_bg" value="<?php echo esc_attr( get_option('docubot_bg') ); ?>" /></td>
+                </tr>
+              <?php } else { ?>
+                <tr valign="top">
+                  <th scope="row">Background Color</th>
+                  <td><input type="color" name="docubot_bg" value="#FFFFFF" /></td>
+                </tr>
+              <?php } ?>
+
+              <?php if ( get_option( 'docubot_secondary_color' ) !== false ) { ?>
+                <tr valign="top">
+                  <th scope="row">Secondary Color</th>
+                  <td><input type="color" name="docubot_secondary_color" value="<?php echo esc_attr( get_option('docubot_secondary_color') ); ?>" /></td>
+                </tr>
+              <?php } else { ?>
+                <tr valign="top">
+                  <th scope="row">Secondary Color</th>
+                  <td><input type="color" name="docubot_secondary_color" value="#6A6A6A" /></td>
+                </tr>
+              <?php } ?>
+
+              <?php if ( get_option( 'docubot_secondary_color_contrast' ) !== false ) { ?>
+                <tr valign="top">
+                  <th scope="row">Secondary Color Contrast</th>
+                  <td><input type="color" name="docubot_secondary_color_contrast" value="<?php echo esc_attr( get_option('docubot_secondary_color_contrast') ); ?>" /></td>
+                </tr>
+              <?php } else { ?>
+                <tr valign="top">
+                  <th scope="row">Secondary Color Contrast</th>
+                  <td><input type="color" name="docubot_secondary_color_contrast" value="#FFFFFF" /></td>
+                </tr>
+              <?php } ?>
 
               <tr valign="top">
-                <th scope="row">Primary Color</th>
-                <td><input type="color" name="docubot_primary_color" value="<?php echo esc_attr( get_option('docubot_primary_color') ); ?>" /></td>
-              </tr>
-
-              <tr valign="top">
-                <th scope="row">Primary Color Contrast</th>
-                <td><input type="color" name="docubot_primary_color_contrast" value="<?php echo esc_attr( get_option('docubot_primary_color_contrast') ); ?>" /></td>
-              </tr>
-
-              <tr valign="top">
-                <th scope="row">Background Color</th>
-                <td><input type="color" name="docubot_bg" value="<?php echo esc_attr( get_option('docubot_bg') ); ?>" /></td>
-              </tr>
-
-              <tr valign="top">
-                <th scope="row">Secondary Color</th>
-                <td><input type="color" name="docubot_secondary_color" value="<?php echo esc_attr( get_option('docubot_secondary_color') ); ?>" /></td>
-              </tr>
-
-              <tr valign="top">
-                <th scope="row">Secondary Color Contrast</th>
-                <td><input type="color" name="docubot_secondary_color_contrast" value="<?php echo esc_attr( get_option('docubot_secondary_color_contrast') ); ?>" /></td>
+                <th scope="row">Reset Colors to Default</th>
+                <td><button type="button" class="button" id="docubot_reset_color">Reset</button></td>
               </tr>
 
               <tr valign="top">
@@ -234,6 +294,8 @@ class DocubotAdmin {
         register_setting( 'docubot-options', 'docubot_site_logo_id' );
         register_setting( 'docubot-options', 'docubot_instruction_text' );
         register_setting( 'docubot-options', 'docubot_use_files' );
+        register_setting( 'docubot-options', 'docubot_use_popup' );
+        register_setting( 'docubot-options', 'docubot_use_l_r' );
         register_setting( 'docubot-options', 'docubot_doctree_1' );
         register_setting( 'docubot-options', 'docubot_document_1' );
         register_setting( 'docubot-options', 'docubot_doctree_2' );
