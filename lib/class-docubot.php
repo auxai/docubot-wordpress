@@ -50,9 +50,9 @@ class DocubotWP {
 
     public static function docubot_assets() {
 
-        wp_register_script( 'docubot_popup', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot_popup.js' );
+        wp_register_script( 'docubot_popup', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot_popup.js', array('jquery') );
         wp_enqueue_script('docubot_popup');
-        wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js' );
+        wp_register_script( 'docubot', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/docubot.js', array('jquery') );
         if ( get_option('docubot_use_files') == '1' ) {
             $doc1 = get_option( 'docubot_document_1' );
             $doc2 = get_option( 'docubot_document_2' );
@@ -129,7 +129,7 @@ class DocubotWP {
 
     /**
      * Gets a value from query param, then returns the value. If there is no query param it returns an empty string.
-     * 
+     *
      * @return string
      */
     private static function get_query_param() {
@@ -147,7 +147,7 @@ class DocubotWP {
 
     /**
      * Takes the query param, sends it to the docubot server, and returns the document id or false if there is an error.
-     * 
+     *
      * @return string|boolean
      */
     private static function get_doc_from_query_param() {
@@ -167,8 +167,8 @@ class DocubotWP {
     }
 
     /**
-     * Creates embedded URL with the clients ID and Secret, then returns a string 
-     * 
+     * Creates embedded URL with the clients ID and Secret, then returns a string
+     *
      * @return string
      * @param string $clientid Client's unique public API key.
      * @param string $clientsecret Client's secret associated with the $clientid / API key
@@ -208,7 +208,7 @@ class DocubotWP {
 
     /**
      * Gets custom colors for docubot and returns url query param formatted string. If no custom colors returns an empty string
-     * 
+     *
      * @return string
      * @param array $shortcodeAtts Optional. Shortcode attributes that have been formatted using the function shortcode_atts() https://developer.wordpress.org/reference/functions/shortcode_atts/
      */
@@ -430,7 +430,7 @@ class DocubotWP {
 
     /**
      * Implements the shortcode [Docubot] and embeds docubot onto the page. NOTE: the popup is disabled when on a page that contains short code.
-     * 
+     *
      * @param array $atts Optional. Can be used to customize colors, and change document id.
      */
     public static function docubot_shortcode( $atts ) {
