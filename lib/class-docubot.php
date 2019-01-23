@@ -70,11 +70,20 @@ class DocubotWP {
               'docubot',
               'docubot_documents',
               array(
+                'use_files' => true,
                 'documents' => $documents,
                 'embedurl' => 'https://docubotembed.1law.com/',
                 'queryParam' => $queryParam
               )
             );
+        } else {
+          wp_localize_script(
+            'docubot',
+            'docubot_documents',
+            array(
+              'use_files' => false
+            )
+          );
         }
         wp_enqueue_script( 'docubot' );
         wp_register_style( 'docubot_style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/docubot.css' );

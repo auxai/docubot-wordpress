@@ -19,14 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   var chatUI = undefined;
   var page_loaded = false;
   var iframe_loaded = false;
-  if (docubot_documents !== undefined) {
+  if (docubot_documents.use_files) {
     embedurl = docubot_documents.embedurl;
   }
 
   $(window).on('message', function(e) {
     if (e && e.originalEvent && e.originalEvent.data && e.originalEvent.data.type == 'docubot-embed-loaded') {
       iframe_loaded = true;
-      if (iframe_loaded && page_loaded) {
+      if (iframe_loaded && page_loaded && docubot_documents.use_files) {
         urlQueryParam();
       }
     }
@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     }
 
     chatUI = $("#docubot_iframe")[0];
-    if (iframe_loaded && page_loaded) {
+    if (iframe_loaded && page_loaded && docubot_documents.use_files) {
       urlQueryParam();
     }
 
