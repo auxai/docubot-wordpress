@@ -69,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     .docubot_header h3 {
         color: #FFFFFF;
         font-size: 100%;
-        margin-left: 5%;
+        margin: 0;
     }
 
     .popup_sprite_docubot {
