@@ -90,28 +90,11 @@ class DocubotAdmin {
               <!-- Document ID -->
 
               <tr valign="top">
-                <th scope="row">Docubot Document ID<p>NOTE: If you are using Docubot files this field will be ignored.</p></th>
-                <td><input type="text" name="docubot_document_id" value="<?php echo esc_attr( get_option('docubot_document_id') ); ?>" /></td>
+                <th scope="row">Docubot Document ID</th>
+                <td><input type="text" name="docubot_document_id" value="<?php echo esc_attr( get_option('docubot_document_id') ); ?>" /><p style="font-style: italic;font-size: .7rem;color: #777777;">The id of the document that Docubot will use as default <br/>(can be overridden by shortcode: [Docubot document_id="override_id"] or url query parameter: http://www.example.com/?doc=override_doc_name)</p></td>
               </tr>
-
               <tr valign="top">
-                <th scope="row">Use Docubot Popup Window</th>
-                <td><input type="checkbox" name="docubot_use_popup" id="docubot_use_popup" value="1" <?php checked( $useDocubotPopup, '1' ); ?>/></td>
-              </tr>
-
-              <tr valign="top" class="docubot_use_side" <?php if ( $useDocubotPopup != '1' ) { ?>style="display: none;"<?php } ?>>
-                <th scope="row">Side</th>
-                <td>
-                  <select name="docubot_use_l_r" id="docubot_use_side">
-                  <?php if ( get_option( 'docubot_use_l_r' ) == "left" ) { ?>
-                    <option value="right">Right</option>
-                    <option value="left" selected="selected">Left</option>
-                  <?php } else { ?>
-                    <option value="right" selected="selected">Right</option>
-                    <option value="left">Left</option>
-                  <?php } ?>
-                  </select>
-                </td>
+                <th>NOTE:</th><td>If "Use Docubot Files" is checked "Docubot Document ID" will be ignored.</td>
               </tr>
 
               <tr valign="top">
@@ -191,6 +174,26 @@ class DocubotAdmin {
                     <input type="file" id="docubot_file_3_input" class="docubot-file-picker-input" data-docnumber="3">
                     Select Docubot File
                   </button>
+                </td>
+              </tr>
+
+              <tr valign="top">
+                <th scope="row">Use Docubot Popup Chat Box</th>
+                <td><input type="checkbox" name="docubot_use_popup" id="docubot_use_popup" value="1" <?php checked( $useDocubotPopup, '1' ); ?>/></td>
+              </tr>
+
+              <tr valign="top" class="docubot_use_side" <?php if ( $useDocubotPopup != '1' ) { ?>style="display: none;"<?php } ?>>
+                <th scope="row">Popup Location</th>
+                <td>
+                  <select name="docubot_use_l_r" id="docubot_use_side">
+                  <?php if ( get_option( 'docubot_use_l_r' ) == "left" ) { ?>
+                    <option value="right">Bottom Right</option>
+                    <option value="left" selected="selected">Bottom Left</option>
+                  <?php } else { ?>
+                    <option value="right" selected="selected">Bottom Right</option>
+                    <option value="left">Bottom Left</option>
+                  <?php } ?>
+                  </select>
                 </td>
               </tr>
 
