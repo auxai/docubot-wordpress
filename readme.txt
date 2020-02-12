@@ -2,8 +2,8 @@
 Contributors: jvyrd
 Tags: bot, lawyer, document, attorney, legal, lead
 Requires at least: 3.0.1
-Tested up to: 5.1.0
-Stable tag: 2.0.0
+Tested up to: 5.3.2
+Stable tag: 2.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -57,3 +57,5 @@ Development is performed on github [here](https://github.com/auxai/docubot-wordp
 * Fixed issue with questions that have answers from docubot proper
 = 2.0.0 =
 * Migrated to Docubot Embed API for more consistent maintenance in the future
+= 2.0.1 =
+* Fixed small issue causing some API credentials to not connect correctly
