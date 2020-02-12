@@ -187,7 +187,7 @@ class DocubotWP {
     private static function get_embed_url($clientid, $clientsecret, $urlQueryParam = false, $shortcodeAtts = null ) {
 
       $embedurl = "https://docubotembed.1law.com/";
-      $embedurl .= '?c=' . $clientid .  '&s=' . $clientsecret;
+      $embedurl .= '?c=' . urlencode( $clientid ) .  '&s=' . urlencode( $clientsecret );
 
       if ($urlQueryParam != false) {
 
@@ -205,7 +205,7 @@ class DocubotWP {
 
       if ( isset($d) && $d != '' ) {
 
-        $embedurl .= '&d=' . $d;
+        $embedurl .= '&d=' . urlencode( $d );
 
       }
       $colors = DocubotWP::get_embed_url_colors($shortcodeAtts);
@@ -227,11 +227,11 @@ class DocubotWP {
 
       if ( $shortcodeAtts != null && $shortcodeAtts['primary_color'] != '' ) {
 
-        $primary_color = str_replace( '#', '%23', $shortcodeAtts['primary_color'] );
+        $primary_color = urlencode( $shortcodeAtts['primary_color'] );
 
       } else {
 
-        $primary_color = str_replace( '#', '%23', get_option( 'docubot_primary_color' ) );
+        $primary_color = urlencode( get_option( 'docubot_primary_color' ) );
 
       }
 
@@ -243,11 +243,11 @@ class DocubotWP {
 
       if ( $shortcodeAtts != null && $shortcodeAtts['primary_color_contrast'] != '' ) {
 
-        $primary_color_contrast = str_replace( '#', '%23', $shortcodeAtts['primary_color_contrast'] );
+        $primary_color_contrast = urlencode( $shortcodeAtts['primary_color_contrast'] );
 
       } else {
 
-        $primary_color_contrast = str_replace( '#', '%23', get_option( 'docubot_primary_color_contrast' ) );
+        $primary_color_contrast = urlencode( get_option( 'docubot_primary_color_contrast' ) );
 
       }
 
@@ -259,11 +259,11 @@ class DocubotWP {
 
       if ( $shortcodeAtts != null && $shortcodeAtts['bg'] != '' ) {
 
-        $bg = str_replace( '#', '%23', $shortcodeAtts['bg'] );
+        $bg = urlencode( $shortcodeAtts['bg'] );
 
       } else {
 
-        $bg = str_replace( '#', '%23', get_option( 'docubot_bg' ) );
+        $bg = urlencode( get_option( 'docubot_bg' ) );
 
       }
 
@@ -275,11 +275,11 @@ class DocubotWP {
 
       if ( $shortcodeAtts != null && $shortcodeAtts['secondary_color'] != '' ) {
 
-        $secondary_color = str_replace( '#', '%23', $shortcodeAtts['secondary_color'] );
+        $secondary_color = urlencode( $shortcodeAtts['secondary_color'] );
 
       } else {
 
-        $secondary_color = str_replace( '#', '%23', get_option( 'docubot_secondary_color' ) );
+        $secondary_color = urlencode( get_option( 'docubot_secondary_color' ) );
 
       }
 
@@ -291,11 +291,11 @@ class DocubotWP {
 
       if ( $shortcodeAtts != null && $shortcodeAtts['secondary_color_contrast'] != '' ) {
 
-        $secondary_color_contrast = str_replace( '#', '%23', $shortcodeAtts['secondary_color_contrast'] );
+        $secondary_color_contrast = urlencode( $shortcodeAtts['secondary_color_contrast'] );
 
       } else {
 
-        $secondary_color_contrast = str_replace( '#', '%23', get_option( 'docubot_secondary_color_contrast' ) );
+        $secondary_color_contrast = urlencode( get_option( 'docubot_secondary_color_contrast' ) );
 
       }
 
