@@ -378,6 +378,14 @@ class DocubotWP {
 
       }
 
+      $chatTitle = '';
+      if ( get_option( 'docubot_popup_title' ) !== false || get_option( 'docubot_popup_title' ) != '' ) {
+        $chatTitle = get_option( 'docubot_popup_title' );
+      }
+      if ( get_option( 'docubot_popup_title' ) == '' || get_option( 'docubot_popup_title' ) == ' ' ) {
+        $chatTitle = 'Chat With Us';
+      }
+
       $style = '';
       if ( get_option( 'docubot_primary_color' ) !== false ) {
         $style .= "background-color:" . get_option( 'docubot_primary_color' ) . "; ";
@@ -395,11 +403,15 @@ class DocubotWP {
 
       // Popup Window ?>
       <div class="docubot_popup <?php echo ( get_option( 'docubot_use_l_r' ) == "left" ? "docubot_left" : "docubot_right" ); ?>">
+          <?php
+          /* Removal of dancing docubot
           <div class="slide_off_docubot">
             <img class="slide_off_sprite_docubot" src="<?php echo plugin_dir_url( dirname( __FILE__ ) ) . 'assets/img/docubot_dance.gif'?>" alt="Docubot">
           </div>
+          */
+          ?>
           <div style="<?php echo $style ?>" class="docubot_header">
-            <h3 style="<?php echo $styleText; ?>" class="chat_docubot">Chat With DocuBot</h3>
+            <h3 style="<?php echo $styleText; ?>" class="chat_docubot"><?php echo $chatTitle ?></h3>
           </div>
           <div style="<?php echo $styleBackground; ?>" class="docubot_body">
             <div class="docubot_container<?php if ( $useDocubotFiles == '1' && !$useQueryParam ) { ?> docubot_use_files<?php } if ( isset( $doctype ) ) : ?> docubot_conversation_started<?php endif ?>">

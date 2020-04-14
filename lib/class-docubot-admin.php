@@ -211,6 +211,11 @@ class DocubotAdmin {
                 </td>
               </tr>
 
+              <tr valign="top">
+                <th scope="row">Docubot Popup Window Title</th>
+                <td><input type="text" name="docubot_popup_title" value="<?php echo esc_attr( get_option('docubot_popup_title') ); ?>" placeholder="Popup window title" title="Popup window title" /></td>
+              </tr>
+
               <!-- Colors -->
               <?php if ( get_option( 'docubot_primary_color' ) !== false ) { ?>
                 <tr valign="top">
@@ -311,6 +316,7 @@ class DocubotAdmin {
         register_setting( 'docubot-options', 'docubot_secondary_color_contrast');
         register_setting( 'docubot-options', 'docubot_bg');
         register_setting( 'docubot-options', 'docubot_document_id');
+        register_setting( 'docubot-options', 'docubot_popup_title');
 
     }
 

@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     }
 
     .docubot_popup {
+        border: solid white 1px;
         position: fixed;
         bottom: -360px;
         width: 300px;
@@ -128,7 +129,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     }
 
     .docubot_show {
-        transition-delay: .5s;
+        /* transition-delay: .5s; */
         transform: translateY(-360px)
     }
 
@@ -164,13 +165,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @media(max-width:414px) {
 
     .docubot_popup .docubot_message_container {
-        height: 500px;
+        height: 450px;
         padding: 0;
     }
 
     .docubot_popup {
+        border: solid white 1px;
         position: fixed;
-        bottom: -550px;
+        bottom: -500px;
         right: 0;
         width: 100%;
         -webkit-transition: 1s ease-in-out;
@@ -263,8 +265,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     }
 
     .docubot_show {
-        transition-delay: .5s;
-        transform: translateY(-500px)
+        /* transition-delay: .5s; */
+        transform: translateY(-450px)
     }
 
     .docubot_hide {
@@ -593,8 +595,8 @@ input[type=text]::-ms-clear {
 }
 
 .onelaw-loader .bounce2 {
-    -webkit-animation-delay: -1s;
-    animation-delay: -1s;
+    /* -webkit-animation-delay: -1s;
+    animation-delay: -1s; */
 }
 
 @-webkit-keyframes onelaw-loader {
